@@ -12,6 +12,39 @@
 
 #include "../minishell.h"
 
+/*3/16のレビューで追加*/
+static void	expand_doller_ten(char **dst, char **rest, char *p)
+{
+	char	*name;
+	char	*value;
+
+	name = calloc(1, sizeof(char));
+	if (name == NULL)
+		fatal_error("calloc");
+	p++;
+	if (!isalpha(*p) && *p != '_')
+	{
+		free(name);
+		return (not_expnad(&(*dst), &(*rest), p));
+	}
+	append_char(&name,*p++);
+	while (ft_isalpha(*p) != 0 || *p == '_' || ft_isdigit(*p) != 0)
+		append_char(&name,*p++);
+	value = map_get(g_env, name);
+	free(name);
+	if (value)
+	{
+		while (*value)
+		{
+			if (*value == '\'')
+				append_char(dst, '\\');
+			append_char(dst, *value++);
+		}
+	}
+	*rest = p;
+}
+/*3/16のレビューで追加*/
+
 static void	switch_doller(char **new_word, char **args)
 {
 	if (**args == '$' && *(*args + 1) == '\0')
@@ -24,7 +57,7 @@ static void	switch_doller(char **new_word, char **args)
 	else if (**args == '$' && *(*args + 1) == '?')
 		expand_dolleeques(&(*new_word), &(*args), *args);
 	else if (**args == '$')
-		expand_doller(&(*new_word), &(*args), *args);
+		expand_doller_ten(&(*new_word), &(*args), *args);
 }
 
 static void	quote_append_indoller(char type, char **new, char **args)
