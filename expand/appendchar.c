@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 01:03:13 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/12 13:18:10 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/16 02:12:22 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,18 @@ void	append_char(char **s, char c)
 
 void	append_single(char **args, char **new)
 {
+	bool	no_insert;
+
+	no_insert = true;
 	while (**args != '\'')
 	{
+		no_insert = false;
 		append_char(&(*new), **args);
 		(*args)++;
 	}
 	(*args)++;
+	if (no_insert == true)
+		*new = ft_strdup("");
 }
 
 static bool	slush_char_ch(char c)
@@ -51,8 +57,12 @@ static bool	slush_char_ch(char c)
 
 void	append_double(char **args, char **new)
 {
+	bool	no_insert;
+
+	no_insert = true;
 	while (**args != '\"')
 	{
+		no_insert = false;
 		if (**args == '\\' && slush_char_ch(*(*args + 1)) == true)
 			b_slush_append(&(*args), &(*new));
 		else if (**args == '$' && *(*args + 1) != '\"')
@@ -64,6 +74,8 @@ void	append_double(char **args, char **new)
 		}
 	}
 	(*args)++;
+	if (no_insert == true)
+		*new = ft_strdup("");
 }
 
 void	quote_append(char **args, char **new_word)
