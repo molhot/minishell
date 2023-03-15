@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 01:32:50 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/05 18:24:56 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/16 02:36:13 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,28 @@ int	stashfd(int fd)
 	return (stashfd);
 }
 
+char	*re_makeinwd(char *line)
+{
+	char	*remake;
+	char	*f_line;
+
+	remake = NULL;
+	f_line = line;
+	while (*line != '\0')
+	{
+		if (*line == '$')
+			expand_doller(&remake, &line, line);
+		else
+			append_char(&remake, *line++);
+	}
+	free(f_line);
+	return (remake);
+}
+
 static	int	heredoc(const char *deli)
 {
 	char	*line;
+	char	*re_line;
 	int		pfd[2];
 
 	if (pipe(pfd) < 0)
@@ -36,13 +55,14 @@ static	int	heredoc(const char *deli)
 		line = readline("input > ");
 		if (line == NULL)
 			break ;
-		else if (ft_strcmp(line, deli) == 0)
+		re_line = re_makeinwd(line);
+		if (ft_strcmp(re_line, deli) == 0)
 		{
-			free(line);
+			//free(line);
 			break ;
 		}
-		ft_putendl_fd(line, pfd[1]);
-		free(line);
+		ft_putendl_fd(re_line, pfd[1]);
+		//free(line);
 	}
 	close (pfd[1]);
 	return (pfd[0]);
