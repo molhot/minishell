@@ -6,11 +6,55 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 17:39:39 by user              #+#    #+#             */
-/*   Updated: 2023/03/16 12:08:33 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/16 15:24:51 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char	*conbinate_keyvalue(t_item *head)
+{
+	char	*env_remake;
+	char	*name;
+	char	*value;
+
+	env_remake = NULL;
+	name = head->name;
+	value = head->value;
+	while (*name != '\0')
+		append_char(&env_remake, *name++);
+	append_char(&env_remake, '=');
+	if (value != NULL)
+		while (*value != '\0')
+			append_char(&env_remake, *value++);
+	return (env_remake);
+}
+
+char	**ready_nextenviron(void)
+{
+	t_item	*head;
+	char	**n_env;
+	size_t	position;
+
+	head = g_env->item_head;
+	position = 0;
+	while (head != NULL)
+	{
+		position++;
+		head = head->next;
+	}
+	n_env = (char**)malloc(sizeof(char*) * (position + 1));
+	head = g_env->item_head;
+	position = 0;
+	while (head != NULL)
+	{
+		n_env[position] = conbinate_keyvalue(head);
+		position++;
+		head = head->next;
+	}
+	n_env[position] = NULL;
+	return (n_env);
+}
 
 char	*get_name(char *name_and_value)
 {

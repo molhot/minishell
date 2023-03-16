@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:28:10 by user              #+#    #+#             */
-/*   Updated: 2023/03/16 12:06:15 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/16 15:02:30 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ void		puts_errorstring_export(char *str);
 
 void		env_init(t_map **env);
 char		*get_name(char *name_and_value);
+char		**ready_nextenviron(void);
 
 /**************** syntaxcheck ***************/
 

@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 01:39:08 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/08 20:36:47 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/16 15:25:13 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	child_process(t_node *node, char *path, char **argv, char **environ)
 	else
 	{
 		if (path[0] == '/' || path[0] == '.')
-			execve(path, argv, environ);
+			execve(path, argv, ready_nextenviron());
 		else
 		{
 			if (searchpath(path) == NULL)
