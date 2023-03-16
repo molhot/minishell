@@ -20,7 +20,10 @@ void	map_copy(t_map_copy *copy)
 	while (item_head)
 	{
 		copy->name = ft_strdup(item_head->name);
-		copy->value = ft_strdup(item_head->value);
+		if (item_head->value == NULL)
+			copy->value = NULL;
+		else
+			copy->value = ft_strdup(item_head->value);
 		copy->sorted = false;
 		if (item_head->next != NULL)
 		{
@@ -82,7 +85,10 @@ void	check_smallestword(t_map_copy *copy)
 		}
 	}
 	minimum->sorted = true;
-	printf("declear -x %s=\"%s\"\n", minimum->name, minimum->value);
+	if (minimum->value != NULL)
+		printf("declear -x %s=\"%s\"\n", minimum->name, minimum->value);
+	else
+		printf("declear -x %s\n", minimum->name);
 }
 
 void	show_sortedmap(void)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: satushi <satushi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:23:35 by user              #+#    #+#             */
-/*   Updated: 2023/02/18 02:22:52 by satushi          ###   ########.fr       */
+/*   Updated: 2023/03/16 10:25:05 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	ms_pwd(void)
 {
-	printf("%s\n", map_get(g_env, "PWD"));
+	printf("%s\n", g_env->pwd);
 }

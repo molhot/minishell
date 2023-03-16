@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:46:37 by user              #+#    #+#             */
-/*   Updated: 2023/02/21 07:49:09 by user             ###   ########.fr       */
+/*   Updated: 2023/03/16 12:13:32 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,5 @@ int	do_builtin(char *line, t_command *command)
 		ms_unset(line, command);
 	else if (ft_strncmp(command->args->word, "echo", 4) == 0)
 		ms_echo(line, command);
-	return (0);
+	return (g_env->err_status);
 }

@@ -6,13 +6,13 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:22:25 by user              #+#    #+#             */
-/*   Updated: 2023/03/03 11:42:50 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/16 14:14:51 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-bool	exportwd_check(char *arg)
+static bool	exportwd_check(char *arg)
 {
 	if (!('a' <= *arg && *arg <= 'z'))
 		if (!('A' <= *arg && *arg <= 'Z'))
@@ -68,15 +68,21 @@ void	exporterrorcheck(char **command)
 	while (command[count] != NULL)
 	{
 		if (exportwd_check(command[count]) == false)
+		{
 			puts_errorstring_export(command[count]);
-		if (ft_strchr(command[count], '=') != NULL)
+			g_env->err_status = 1;
+		}
+		else
 		{
 			start = command[count];
 			equal = start;
 			end = command[count] + ft_strlen(command[count]);
-			while (*equal != '=')
+			while (*equal != '=' && *equal != '\0')
 				equal++;
-			map_insert(start, equal, end);
+			if (equal == end)
+				map_set(&g_env, command[count], NULL);
+			else
+				map_insert(start, equal, end);
 		}
 		(count)++;
 	}

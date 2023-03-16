@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:19:18 by user              #+#    #+#             */
-/*   Updated: 2023/03/01 00:10:03 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/16 09:12:46 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,9 @@
 
 static void	echo_helper(char **commands, size_t position)
 {
-	while (commands[position] != NULL)
-	{
-		write(1, commands[position], ft_strlen(commands[position]));
-		if (commands[position + 1] != NULL)
-			write(1, " ", ft_strlen(" "));
-		position++;
-	}
+	write(1, commands[position], ft_strlen(commands[position]));
+	if (commands[position + 1] != NULL)
+		write(1, " ", ft_strlen(" "));
 }
 
 int	ms_echo(char *line, t_command *command)
@@ -35,16 +31,21 @@ int	ms_echo(char *line, t_command *command)
 		fatal_error("malloc");
 	if (commands[1] != NULL && ft_strcmp(commands[position], "-n") == 0)
 	{
+		while (ft_strcmp(commands[position], "-n") == 0)
+			position++;
 		while (commands[position] != NULL)
 		{
-			if (ft_strcmp(commands[position], "-n") != 0)
-				echo_helper(commands, position);
+			echo_helper(commands, position);
 			position++;
 		}
 	}
 	else
 	{
-		echo_helper(commands, position);
+		while (commands[position] != NULL)
+		{
+			echo_helper(commands, position);
+			position++;
+		}
 		write(1, "\n", ft_strlen("\n"));
 	}
 	free_commands(commands);

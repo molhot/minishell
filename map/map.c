@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 05:30:12 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/02 11:29:10 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/16 14:10:02 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ t_item	*item_new(char *name, char *value)
 	if (!item)
 		return (NULL);
 	item->name = ft_strdup(name);
-	item->value = ft_strdup(value);
+	if (value != NULL)
+		item->value = ft_strdup(value);
+	else
+		item->value = NULL;
 	item->next = NULL;
 	return (item);
 }
