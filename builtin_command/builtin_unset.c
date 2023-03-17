@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:24:47 by user              #+#    #+#             */
-/*   Updated: 2023/03/17 11:54:50 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/17 12:12:47 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,20 @@ static bool	exportwd_check(char *arg)
 		arg++;
 	}
 	return (true);
+}
+
+static bool	error_unset(char *sub)
+{
+	printf("-minishell: %s: not correct argment!! booboo:X\n", sub);
+	return (true);
+}
+
+static void	errorstatus_set(bool flag)
+{
+	if (flag == true)
+		g_env->err_status = 1;
+	else
+		g_env->err_status = 0;
 }
 
 void	ms_unset(char *line, t_command *command)
@@ -48,17 +62,11 @@ void	ms_unset(char *line, t_command *command)
 	while (commands[position] != NULL)
 	{
 		if (exportwd_check(commands[position]) == false)
-		{
-			printf("%s\n", "not correct argment!! booboo:X");
-			not_correctarg = true;
-		}
+			not_correctarg = error_unset(commands[position]);
 		else
 			map_unset(&g_env, commands[position]);
 		position++;
 	}
-	if (not_correctarg == true)
-		g_env->err_status = 1;
-	else
-		g_env->err_status = 0;
+	errorstatus_set(not_correctarg);
 	free_commands(commands);
 }

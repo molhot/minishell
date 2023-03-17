@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:28:10 by user              #+#    #+#             */
-/*   Updated: 2023/03/16 15:02:30 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/17 12:50:22 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ void		append_char(char **s, char c);
 void		expand_dolleeques(char **dst, char **rest, char *p);
 void		append_num(char **dst, unsigned int num);
 void		expand_specialparam(t_token *token);
+void		expand_doller_ten(char **dst, char **rest, char *p);
 void		remake_token(t_token *token, t_token *re_token);
 void		expand_quote(t_token *token);
 t_redirect	*expand_redirect_ten(t_redirect *redirect);
@@ -219,6 +220,7 @@ char		*accessok_file(char *path);
 int			stashfd(int fd);
 void		aray_free(char **argv);
 void		builtin_exec(t_node *node);
+void		inout_reconnect(int file_fd, int fd, t_command *command);
 
 /************* role checker ************/
 

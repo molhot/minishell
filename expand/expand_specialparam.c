@@ -13,36 +13,36 @@
 #include "../minishell.h"
 
 /*3/16のレビューで追加*/
-static void	expand_doller_ten(char **dst, char **rest, char *p)
-{
-	char	*name;
-	char	*value;
+// static void	expand_doller_ten(char **dst, char **rest, char *p)
+// {
+// 	char	*name;
+// 	char	*value;
 
-	name = calloc(1, sizeof(char));
-	if (name == NULL)
-		fatal_error("calloc");
-	p++;
-	if (!isalpha(*p) && *p != '_')
-	{
-		free(name);
-		return (not_expnad(&(*dst), &(*rest), p));
-	}
-	append_char(&name,*p++);
-	while (ft_isalpha(*p) != 0 || *p == '_' || ft_isdigit(*p) != 0)
-		append_char(&name,*p++);
-	value = map_get(g_env, name);
-	free(name);
-	if (value)
-	{
-		while (*value)
-		{
-			if (*value == '\'')
-				append_char(dst, '\\');
-			append_char(dst, *value++);
-		}
-	}
-	*rest = p;
-}
+// 	name = calloc(1, sizeof(char));
+// 	if (name == NULL)
+// 		fatal_error("calloc");
+// 	p++;
+// 	if (!isalpha(*p) && *p != '_')
+// 	{
+// 		free(name);
+// 		return (not_expnad(&(*dst), &(*rest), p));
+// 	}
+// 	append_char(&name,*p++);
+// 	while (ft_isalpha(*p) != 0 || *p == '_' || ft_isdigit(*p) != 0)
+// 		append_char(&name,*p++);
+// 	value = map_get(g_env, name);
+// 	free(name);
+// 	if (value)
+// 	{
+// 		while (*value)
+// 		{
+// 			if (*value == '\'')
+// 				append_char(dst, '\\');
+// 			append_char(dst, *value++);
+// 		}
+// 	}
+// 	*rest = p;
+// }
 /*3/16のレビューで追加*/
 
 static void	switch_doller(char **new_word, char **args)

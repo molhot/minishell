@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:22:25 by user              #+#    #+#             */
-/*   Updated: 2023/03/17 11:53:04 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/17 12:14:44 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,7 @@ void	exporterrorcheck(char **command)
 	while (command[count] != NULL)
 	{
 		if (exportwd_check(command[count]) == false)
-		{
 			puts_errorstring_export(command[count]);
-			g_env->err_status = 1;
-		}
 		else
 		{
 			start = command[count];

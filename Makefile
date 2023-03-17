@@ -6,14 +6,14 @@ SRCS	=	tokenizer/tokenizer.c tokenizer/create_token.c\
 			expand/expand.c expand/expand_doller.c expand/appendchar.c expand/expand_specialchar.c expand/export_expand.c expand/expand_utils.c\
 			expand/expand_quote.c expand/expand_redirection.c expand/remake_token.c expand/expand_specialparam.c\
 			exec_func/exec_func.c exec_func/exec_builtin.c exec_func/pipe_func.c exec_func/redirect_file.c expand/export_argsremake.c\
-			exec_func/exec_absolutepath.c exec_func/exec_utils.c exec_func/stashfd_helper.c exec_func/builtin_exec.c\
+			exec_func/exec_absolutepath.c exec_func/exec_utils.c exec_func/stashfd_helper.c exec_func/builtin_exec.c exec_func/redirect_file_utils.c\
 			word_rolechecker/is_blank.c word_rolechecker/is_metacharacter.c word_rolechecker/is_space.c word_rolechecker/consume_blank.c word_rolechecker/word_blankcheck.c\
 			word_rolechecker/is_operator.c word_rolechecker/is_redirect.c word_rolechecker/is_word.c word_rolechecker/startswith_keyword.c\
 			builtin_command/builtin_cd.c builtin_command/builtin_echo.c builtin_command/builtin_env.c\
 			builtin_command/builtin_exit.c builtin_command/builtin_export.c builtin_command/builtin_pwd.c\
 			builtin_command/builtin_unset.c builtin_command/command_to_array.c builtin_command/builtin_check.c\
 			builtin_command/puts_errorstring.c builtin_command/builtin_export_no.c\
-			signalhandler/sigint_handler.c\
+			signalhandler/sigint_handler.c expand/expand_specialparam_utils.c\
 			map/map.c map/map_utils.c\
 			free/free_token.c\
 			env_ready.c main.c error.c ms_atoi.c
@@ -29,7 +29,7 @@ LIBSRCS	=	libft/ft_isalpha.c libft/ft_isdigit.c libft/ft_isascii.c libft/ft_isal
 			libft/ft_lstnew.c libft/ft_lstadd_front.c libft/ft_lstsize.c libft/ft_lstlast.c libft/ft_lstadd_back.c\
 			libft/ft_lstclear.c libft/ft_lstiter.c libft/ft_lstmap.c libft/ft_strndup.c
 LIBOBJ = $(LIBSRCS:%.c=%.o)
-CC  	=	gcc
+CC  	=	gcc -g
 CFLAGS	=	-Wall -Werror -Wextra
 RLDIR	=	$(shell brew --prefix readline)
 SANI	= -fsanitize=address

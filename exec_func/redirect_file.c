@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 01:32:50 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/16 02:36:13 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/17 12:44:30 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ static	int	heredoc(const char *deli)
 		re_line = re_makeinwd(line);
 		if (ft_strcmp(re_line, deli) == 0)
 		{
-			//free(line);
+			free(re_line);
 			break ;
 		}
 		ft_putendl_fd(re_line, pfd[1]);
-		//free(line);
+		free(re_line);
 	}
 	close (pfd[1]);
 	return (pfd[0]);
@@ -95,14 +95,6 @@ void	ready_redirectionfile(t_node *node)
 		}
 		node = node->next;
 	}
-}
-
-void	inout_reconnect(int file_fd, int fd, t_command *command)
-{
-	dup2(file_fd, fd);
-	if (file_fd != -1)
-		close(file_fd);
-	command->now_in = file_fd;
 }
 
 int	redirect_reconect(t_command *command)

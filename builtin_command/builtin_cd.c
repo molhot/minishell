@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:18:23 by user              #+#    #+#             */
-/*   Updated: 2023/03/17 11:55:13 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/17 12:16:39 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static	void	show_manual(char **commands)
 {
 	free_commands(commands);
 	ft_putendl_fd("cd with only a relative or absolute path", 2);
+	g_env->err_status = 1;
 	return ;
 }
 
@@ -72,11 +73,7 @@ void	ms_cd(t_command *command)
 		fatal_error("malloc");
 	if (commands[1] == NULL || commands[2] != NULL \
 	|| ft_strchr(commands[1], '~'))
-	{
-		show_manual(commands);
-		g_env->err_status = 1;
-		return ;
-	}
+		return (show_manual(commands));
 	cwd = getcwd(NULL, 0);
 	if (chdir(commands[1]) < 0 || cwd == NULL)
 	{
