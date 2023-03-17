@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 17:39:39 by user              #+#    #+#             */
-/*   Updated: 2023/03/16 15:24:51 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/17 11:43:22 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	**ready_nextenviron(void)
 		position++;
 		head = head->next;
 	}
-	n_env = (char**)malloc(sizeof(char*) * (position + 1));
+	n_env = (char **)malloc(sizeof(char *) * (position + 1));
 	head = g_env->item_head;
 	position = 0;
 	while (head != NULL)

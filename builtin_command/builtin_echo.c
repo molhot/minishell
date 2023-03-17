@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:19:18 by user              #+#    #+#             */
-/*   Updated: 2023/03/16 09:12:46 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/17 11:54:18 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ int	ms_echo(char *line, t_command *command)
 		write(1, "\n", ft_strlen("\n"));
 	}
 	free_commands(commands);
+	g_env->err_status = 0;
 	return (0);
 }

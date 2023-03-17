@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:20:06 by user              #+#    #+#             */
-/*   Updated: 2023/03/02 10:08:25 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/17 11:54:26 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void	ms_env(void)
 	itr = g_env->item_head;
 	while (itr != NULL)
 	{
-		printf("%s=%s\n", itr->name, itr->value);
+		if (itr->value != NULL)
+			printf("%s=%s\n", itr->name, itr->value);
 		itr = itr->next;
 	}
+	g_env->err_status = 0;
 }

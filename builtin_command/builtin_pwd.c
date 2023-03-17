@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:23:35 by user              #+#    #+#             */
-/*   Updated: 2023/03/16 10:25:05 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/17 11:54:33 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,4 +15,5 @@
 void	ms_pwd(void)
 {
 	printf("%s\n", g_env->pwd);
+	g_env->err_status = 0;
 }

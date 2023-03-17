@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:18:23 by user              #+#    #+#             */
-/*   Updated: 2023/03/10 01:58:04 by kazuki           ###   ########.fr       */
+/*   Updated: 2023/03/17 11:55:13 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	ms_cd(t_command *command)
 	|| ft_strchr(commands[1], '~'))
 	{
 		show_manual(commands);
+		g_env->err_status = 1;
 		return ;
 	}
 	cwd = getcwd(NULL, 0);
@@ -81,6 +82,7 @@ void	ms_cd(t_command *command)
 	{
 		perror("chdir");
 		free_all(cwd, commands);
+		g_env->err_status = 1;
 		return ;
 	}
 	if (is_sym(commands[1]))
@@ -88,4 +90,5 @@ void	ms_cd(t_command *command)
 	else
 		map_set(&g_env, "PWD", getcwd(buf, sizeof(buf)));
 	free_all(cwd, commands);
+	g_env->err_status = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:22:25 by user              #+#    #+#             */
-/*   Updated: 2023/03/16 14:14:51 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/17 11:53:04 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	ms_export(char *line, t_command *command)
 		if (commands[1] == NULL)
 		{
 			free_commands(commands);
+			g_env->err_status = 0;
 			return (show_sortedmap());
 		}
 		exporterrorcheck(commands);
