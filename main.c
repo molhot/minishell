@@ -53,7 +53,7 @@ static void	readline_execpart(char *line)
 static void	exit_f(void)
 {
 	printf("exit\n");
-	exit(0);
+	exit(g_env->err_status);
 }
 
 int	main(void)
