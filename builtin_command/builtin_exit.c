@@ -23,7 +23,7 @@ void	ms_exit(char *line, t_command *command)
 	if (commands[1] == NULL)
 	{
 		printf("exit\n");
-		exit(0);
+		exit(g_env->err_status);
 	}
 	if (!ms_atoi(commands[1]) || (ms_atoi(commands[1]) == -1 \
 		&& ft_strlen(commands[1]) > 2))
