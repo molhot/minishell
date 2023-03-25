@@ -29,8 +29,12 @@ static void	switch_doller_inexpandquote(char **new_word, char **args)
 
 static void	append_double_export(char **args, char **new)
 {
+	bool	fa;
+
+	fa = true;
 	while (**args != '\"')
 	{
+		fa = false;
 		if (**args == '$' && *(*args + 1) != '\"')
 			expand_doller_dq(&(*new), &(*args), *args);
 		else
@@ -44,6 +48,8 @@ static void	append_double_export(char **args, char **new)
 			(*args)++;
 		}
 	}
+	if (fa == true)
+		append_char(&(*new), '\0');
 	(*args)++;
 }
 

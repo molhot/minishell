@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:22:25 by user              #+#    #+#             */
-/*   Updated: 2023/03/17 12:14:44 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/23 20:58:53 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,10 @@ void	exporterrorcheck(char **command)
 			while (*equal != '=' && *equal != '\0')
 				equal++;
 			if (equal == end)
-				map_set(&g_env, command[count], NULL);
+			{
+				if (map_get(g_env, command[count]) == NULL)
+					map_set(&g_env, command[count], NULL);
+			}
 			else
 				map_insert(start, equal, end);
 		}

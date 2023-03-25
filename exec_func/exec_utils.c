@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 19:59:30 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/02 10:33:31 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/24 10:46:29 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,23 @@ static char	*searchpath_utils(char *path, char *value, const char *filename)
 	return (end);
 }
 
-char	*searchpath(const char *filename)
+char	*searchpath(const char *cmd)
 {
 	char	*path;
 	char	*value;
 	char	*end;
 
 	value = getenv("PATH");
+	if (ft_strcmp(cmd, "") == 0)
+		return (NULL);
 	path = (char *)malloc(sizeof(char) * PATH_MAX);
 	if (!path)
 		fatal_error("malloc");
-	if (ft_strlen(filename) > PATH_MAX)
+	if (ft_strlen(cmd) > PATH_MAX)
 		return (NULL);
 	while (*value != '\0')
 	{
-		end = searchpath_utils(path, value, filename);
+		end = searchpath_utils(path, value, cmd);
 		if (access(path, X_OK) == 0)
 			return (accessok_file(path));
 		if (end == NULL)
@@ -91,7 +93,10 @@ char	*accessok_file(char *path)
 	dup = ft_strdup(path);
 	free(path);
 	if (dup == NULL)
+	{
+		free(dup);
 		return (NULL);
+	}
 	return (dup);
 }
 

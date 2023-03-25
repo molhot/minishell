@@ -26,7 +26,7 @@ size_t position, char **sub, char **dup, char *free_sub)
 
 	last = ft_strlen(free_sub);
 	if (position != last && **sub == '\\' \
-	&& sp_wd_ch(**(sub + 1)) == true)
+	&& sp_wd_ch(*(*sub + 1)) == true)
 	{
 		append_char(&(*dup), **sub);
 		(*sub)++;
@@ -50,6 +50,8 @@ void	export_argsremake(t_token *token)
 	{
 		dup = NULL;
 		sub = token->word;
+		if (ft_strcmp(sub, "\0") == 0)
+			dup = ft_strdup("");
 		free_sub = sub;
 		while (*sub != '\0' && sub != NULL)
 		{

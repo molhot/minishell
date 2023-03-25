@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 01:03:13 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/16 02:12:22 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/23 20:21:27 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	append_single(char **args, char **new)
 	}
 	(*args)++;
 	if (no_insert == true)
-		*new = ft_strdup("");
+		append_char(&(*new), '\0');
 }
 
 static bool	slush_char_ch(char c)
@@ -75,7 +75,7 @@ void	append_double(char **args, char **new)
 	}
 	(*args)++;
 	if (no_insert == true)
-		*new = ft_strdup("");
+		append_char(&(*new), '\0');
 }
 
 void	quote_append(char **args, char **new_word)
