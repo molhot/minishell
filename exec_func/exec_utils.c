@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 19:59:30 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/02 10:33:31 by marvin           ###   ########.fr       */
+/*   Updated: 2023/03/25 19:55:50 by user             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ char	*searchpath(const char *filename)
 	char	*end;
 
 	value = getenv("PATH");
+	if (ft_strcmp(filename, "") == 0)
+		return (NULL);
 	path = (char *)malloc(sizeof(char) * PATH_MAX);
 	if (!path)
 		fatal_error("malloc");
