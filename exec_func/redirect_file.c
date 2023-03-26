@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 01:32:50 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/26 20:55:15 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/26 21:08:56 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,22 @@ static	int	heredoc(const char *deli)
 	return (pfd[0]);
 }
 
+// int	obtain_fd(t_redirect *redirect)
+// {
+// 	int	fd;
+// 	if (redirect->type == IN)
+// 		fd = open(redirect->file_path, O_RDONLY);
+// 	if (redirect->type == HEREDOC)
+// 		fd = heredoc(redirect->file_path);
+// 	if (redirect->type == OUT)
+// 		fd = open(redirect->file_path,
+// 		O_CREAT | O_WRONLY | O_TRUNC, 0644);
+// 	if (redirect->type == APPEND)
+// 		fd = open(redirect->file_path,
+// 		O_CREAT | O_WRONLY | O_APPEND, 0644);
+// 	return (fd);
+// }
+
 void	ready_redirectionfile(t_node *node)
 {
 	int			fd;
@@ -78,16 +94,7 @@ void	ready_redirectionfile(t_node *node)
 		redirect = *(node->command->redirect);
 		while (redirect != NULL)
 		{
-			if (redirect->type == IN)
-				fd = open(redirect->file_path, O_RDONLY);
-			if (redirect->type == HEREDOC)
-				fd = heredoc(redirect->file_path);
-			if (redirect->type == OUT)
-				fd = open(redirect->file_path, \
-				O_CREAT | O_WRONLY | O_TRUNC, 0644);
-			if (redirect->type == APPEND)
-				fd = open(redirect->file_path, \
-				O_CREAT | O_WRONLY | O_APPEND, 0644);
+			fd = obtain_fd(redirect);
 			if (fd != -1)
 				fd = stashfd(fd);
 			else

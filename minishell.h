@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:28:10 by user              #+#    #+#             */
-/*   Updated: 2023/03/17 12:50:22 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/26 21:07:17 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,7 @@ int			stashfd(int fd);
 void		aray_free(char **argv);
 void		builtin_exec(t_node *node);
 void		inout_reconnect(int file_fd, int fd, t_command *command);
+int			obtain_fd(t_redirect *redirect);
 
 /************* role checker ************/
 
