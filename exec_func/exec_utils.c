@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 19:59:30 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/26 00:52:31 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/26 14:22:04 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,7 @@ char	*searchpath(const char *cmd)
 		if (access(path, X_OK) == 0)
 			return (accessok_file(path));
 		if (end == NULL)
-		{
-			free(path);
-			return (NULL);
-		}
+			break ;
 		value = end + 1;
 	}
 	free(path);
