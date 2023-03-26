@@ -12,6 +12,50 @@
 
 #include "../minishell.h"
 
+char	*re_makeinwd(char *line)
+{
+	char	*remake;
+	char	*f_line;
+
+	remake = NULL;
+	f_line = line;
+	while (*line != '\0')
+	{
+		if (*line == '$')
+			expand_doller(&remake, &line, line);
+		else
+			append_char(&remake, *line++);
+	}
+	free(f_line);
+	return (remake);
+}
+
+static	int	heredoc(const char *deli)
+{
+	char	*line;
+	char	*re_line;
+	int		pfd[2];
+
+	if (pipe(pfd) < 0)
+		fatal_error("pipe");
+	while (1)
+	{
+		line = readline("input > ");
+		if (line == NULL)
+			break ;
+		re_line = re_makeinwd(line);
+		if (ft_strcmp(re_line, deli) == 0)
+		{
+			free(re_line);
+			break ;
+		}
+		ft_putendl_fd(re_line, pfd[1]);
+		free(re_line);
+	}
+	close (pfd[1]);
+	return (pfd[0]);
+}
+
 int	obtain_fd(t_redirect *redirect)
 {
 	int	fd;

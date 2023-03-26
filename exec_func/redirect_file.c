@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 01:32:50 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/26 21:08:56 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/26 21:14:07 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,49 +24,31 @@ int	stashfd(int fd)
 	return (stashfd);
 }
 
-char	*re_makeinwd(char *line)
-{
-	char	*remake;
-	char	*f_line;
+// static	int	heredoc(const char *deli)
+// {
+// 	char	*line;
+// 	char	*re_line;
+// 	int		pfd[2];
 
-	remake = NULL;
-	f_line = line;
-	while (*line != '\0')
-	{
-		if (*line == '$')
-			expand_doller(&remake, &line, line);
-		else
-			append_char(&remake, *line++);
-	}
-	free(f_line);
-	return (remake);
-}
-
-static	int	heredoc(const char *deli)
-{
-	char	*line;
-	char	*re_line;
-	int		pfd[2];
-
-	if (pipe(pfd) < 0)
-		fatal_error("pipe");
-	while (1)
-	{
-		line = readline("input > ");
-		if (line == NULL)
-			break ;
-		re_line = re_makeinwd(line);
-		if (ft_strcmp(re_line, deli) == 0)
-		{
-			free(re_line);
-			break ;
-		}
-		ft_putendl_fd(re_line, pfd[1]);
-		free(re_line);
-	}
-	close (pfd[1]);
-	return (pfd[0]);
-}
+// 	if (pipe(pfd) < 0)
+// 		fatal_error("pipe");
+// 	while (1)
+// 	{
+// 		line = readline("input > ");
+// 		if (line == NULL)
+// 			break ;
+// 		re_line = re_makeinwd(line);
+// 		if (ft_strcmp(re_line, deli) == 0)
+// 		{
+// 			free(re_line);
+// 			break ;
+// 		}
+// 		ft_putendl_fd(re_line, pfd[1]);
+// 		free(re_line);
+// 	}
+// 	close (pfd[1]);
+// 	return (pfd[0]);
+// }
 
 // int	obtain_fd(t_redirect *redirect)
 // {
