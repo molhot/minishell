@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 01:04:15 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/16 02:35:12 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/26 20:37:02 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ void	expand_doller(char **dst, char **rest, char *p)
 	char	*name;
 	char	*value;
 
-	name = calloc(1, sizeof(char));
+	name = ft_calloc(1, sizeof(char));
 	if (name == NULL)
 		fatal_error("calloc");
 	p++;
-	if (!isalpha(*p) && *p != '_')
+	if (!ft_isalpha(*p) && *p != '_')
 	{
 		free(name);
 		return (not_expnad(&(*dst), &(*rest), p));
@@ -70,7 +70,7 @@ void	expand_doller_dq(char **dst, char **rest, char *p)
 	char	*name;
 	char	*value;
 
-	name = calloc(1, sizeof(char));
+	name = ft_calloc(1, sizeof(char));
 	if (name == NULL)
 		fatal_error("calloc");
 	p++;

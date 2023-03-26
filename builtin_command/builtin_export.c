@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:22:25 by user              #+#    #+#             */
-/*   Updated: 2023/03/26 14:26:31 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/26 20:38:25 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static bool	exportwd_check(char *arg)
 	arg++;
 	while (*arg != '\0' && *arg != '=')
 	{
-		if (!isascii(*arg))
+		if (!ft_isascii(*arg))
 			return (false);
 		arg++;
 	}

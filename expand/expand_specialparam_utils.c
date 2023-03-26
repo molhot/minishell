@@ -25,11 +25,11 @@ void	expand_doller_ten(char **dst, char **rest, char *p)
 	char	*name;
 	char	*value;
 
-	name = calloc(1, sizeof(char));
+	name = ft_calloc(1, sizeof(char));
 	if (name == NULL)
 		fatal_error("calloc");
 	p++;
-	if (!isalpha(*p) && *p != '_')
+	if (!ft_isalpha(*p) && *p != '_')
 	{
 		free(name);
 		return (not_expnad(&(*dst), &(*rest), p));
