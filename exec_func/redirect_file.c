@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 01:32:50 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/17 12:44:30 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/26 20:55:15 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,11 @@ void	ready_redirectionfile(t_node *node)
 				O_CREAT | O_WRONLY | O_APPEND, 0644);
 			if (fd != -1)
 				fd = stashfd(fd);
+			else
+			{
+				redirect->redirectfile = fd;
+				break ;
+			}
 			redirect->redirectfile = fd;
 			redirect = redirect->next;
 		}
