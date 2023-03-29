@@ -6,7 +6,7 @@
 /*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:28:10 by user              #+#    #+#             */
-/*   Updated: 2023/03/30 00:19:19 by kazuki           ###   ########.fr       */
+/*   Updated: 2023/03/30 00:30:20 by kazuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ typedef struct s_map_copy {
 typedef struct s_map{
 	t_item	*item_head;
 	int		err_status;
-	char	*pwd;
 }				t_map;
 
 extern t_map				*g_env;

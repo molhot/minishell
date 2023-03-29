@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_ready.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
+/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 17:39:39 by user              #+#    #+#             */
-/*   Updated: 2023/03/17 11:43:22 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/30 00:33:13 by kazuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,6 @@ void	env_init(t_map **env)
 	while (environ[i] != NULL)
 	{
 		name = get_name(environ[i]);
-		if (ft_strcmp(name, "PATH") == 0)
-			g_env->pwd = ft_strdup(getenv(name));
 		value = getenv(name);
 		map_set(env, name, value);
 		free(name);
