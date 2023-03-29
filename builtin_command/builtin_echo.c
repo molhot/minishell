@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
+/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:19:18 by user              #+#    #+#             */
-/*   Updated: 2023/03/17 12:02:41 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/30 00:26:33 by kazuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,23 @@ static void	echo_helper(char **commands, size_t *position)
 	*position = *position + 1;
 }
 
+bool	check_option(char *option)
+{
+	size_t	i;
+
+	if (option[0] == '-')
+	{
+		i = 1;
+		while (option[i] == 'n')
+			i++;
+		if (option[i] != '\0')
+			return (false);
+		else
+			return (true);
+	}
+	return (false);
+}
+
 int	ms_echo(char *line, t_command *command)
 {
 	char	**commands;
@@ -30,10 +47,9 @@ int	ms_echo(char *line, t_command *command)
 	commands = command_to_array(command);
 	if (!commands)
 		fatal_error("malloc");
-	if (commands[1] != NULL && ft_strcmp(commands[position], "-n") == 0)
+	if (commands[1] != NULL && check_option(commands[position]))
 	{
-		while (ft_strcmp(commands[position], "-n") == 0)
-			position++;
+		position++;
 		while (commands[position] != NULL)
 			echo_helper(commands, &position);
 	}
