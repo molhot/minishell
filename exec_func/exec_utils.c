@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
+/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 19:59:30 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/26 14:22:04 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/30 00:54:29 by kazuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,9 @@ char	*searchpath(const char *cmd)
 	char	*value;
 	char	*end;
 
-	value = getenv("PATH");
+	value = map_get(g_env, "PATH");
+	if (!value)
+		return (NULL);
 	if (ft_strcmp(cmd, "") == 0)
 		return (NULL);
 	path = (char *)malloc(sizeof(char) * PATH_MAX);
