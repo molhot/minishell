@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 23:22:25 by user              #+#    #+#             */
-/*   Updated: 2023/03/10 14:33:59 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/01 15:41:59 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,13 @@ bool	parse_redirect(t_redirect **redirect, t_token **tok)
 		(*redirect)->type = OUT;
 	if ((*tok)->next->kind == TK_WORD)
 		(*redirect)->file_path = ft_strdup((*tok)->next->word);
+	if (ft_strchr((*tok)->next->word, '\'') != NULL || ft_strchr((*tok)->next->word, '\"') != NULL)
+	{
+		if ((*redirect)->type == HEREDOC)
+			(*redirect)->expand_ok = false;
+	}
+	else
+		(*redirect)->expand_ok = true;
 	return (true);
 }
 
