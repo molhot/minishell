@@ -3,21 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
+/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:19:18 by user              #+#    #+#             */
-/*   Updated: 2023/03/17 12:02:41 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/30 02:22:11 by kazuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	echo_helper(char **commands, size_t *position)
+bool	check_option(char *option)
 {
-	write(1, commands[*position], ft_strlen(commands[*position]));
-	if (commands[*position + 1] != NULL)
-		write(1, " ", ft_strlen(" "));
-	*position = *position + 1;
+	size_t	i;
+
+	if (option[0] == '-')
+	{
+		i = 1;
+		while (option[i] == 'n')
+			i++;
+		if (option[i] != '\0')
+			return (false);
+		else
+			return (true);
+	}
+	return (false);
 }
 
 int	ms_echo(char *line, t_command *command)
@@ -30,18 +39,24 @@ int	ms_echo(char *line, t_command *command)
 	commands = command_to_array(command);
 	if (!commands)
 		fatal_error("malloc");
-	if (commands[1] != NULL && ft_strcmp(commands[position], "-n") == 0)
+	if (commands[1] != NULL && check_option(commands[position]))
 	{
-		while (ft_strcmp(commands[position], "-n") == 0)
+		while (commands[position] != NULL && check_option(commands[position]))
 			position++;
-		while (commands[position] != NULL)
-			echo_helper(commands, &position);
+		if (!commands[position])
+			ft_putchar_fd('\0', 1);
+		else
+		{
+			while (commands[position] != NULL)
+				ft_putstr_fd(commands[position++], 1);
+		}
 	}
 	else
 	{
+		if (commands[position] == NULL)
+			ft_putendl_fd("", 1);
 		while (commands[position] != NULL)
-			echo_helper(commands, &position);
-		write(1, "\n", ft_strlen("\n"));
+			ft_putendl_fd(commands[position++], 1);
 	}
 	free_commands(commands);
 	g_env->err_status = 0;

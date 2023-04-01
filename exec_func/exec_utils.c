@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
+/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 19:59:30 by satushi           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/03/30 01:40:13 by mochitteiun      ###   ########.fr       */
+=======
+/*   Updated: 2023/03/30 00:54:29 by kazuki           ###   ########.fr       */
+>>>>>>> refs/remotes/origin/master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +74,11 @@ char	*searchpath(const char *cmd)
 	char	*end;
 
 	value = map_get(g_env, "PATH");
+<<<<<<< HEAD
+=======
+	if (!value)
+		return (NULL);
+>>>>>>> refs/remotes/origin/master
 	if (ft_strcmp(cmd, "") == 0)
 		return (NULL);
 	path = (char *)malloc(sizeof(char) * PATH_MAX);
