@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:19:18 by user              #+#    #+#             */
-/*   Updated: 2023/04/01 13:46:07 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/01 14:57:07 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	ms_echo(char *line, t_command *command)
 	else
 	{
 		if (commands[position] == NULL)
-			ft_putendl_fd("", 1);
+			ft_putstr_fd("", 1);
 		while (commands[position] != NULL)
 		{
 			ft_putstr_fd(commands[position++], 1);

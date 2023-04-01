@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:18:23 by user              #+#    #+#             */
-/*   Updated: 2023/04/01 13:50:37 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/01 14:45:20 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,28 @@ void	ms_cd(t_command *command)
 	if (commands[1] == NULL || commands[2] != NULL \
 	|| ft_strchr(commands[1], '~'))
 		return (show_manual(commands));
-	cwd = getcwd(NULL, 0);
-	if (chdir(commands[1]) < 0 || cwd == NULL)
+	if (chdir(commands[1]) < 0)// || cwd == NULL)
 	{
 		perror("chdir");
-		free_all(cwd, commands);
+		//free_all(cwd, commands);
 		g_env->err_status = 1;
+		return ;
+	}
+	cwd = getcwd(NULL, 0);
+	if (getcwd(NULL, 0) == NULL)
+	{
+		printf("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n");
+		char *nowpath;
+		char *afterpath;
+		char *lastpath;
+
+		nowpath = map_get(g_env, "PWD");
+		afterpath = ft_strjoin(nowpath, "/");
+		lastpath = ft_strjoin(afterpath, commands[1]);
+		//printf("%s\n", afterpath);
+		map_set(&g_env, "PWD", lastpath);
+		free_all(cwd, commands);
+		g_env->err_status = 0;
 		return ;
 	}
 	if (is_sym(commands[1]))

@@ -19,6 +19,7 @@ char	*re_makeinwd(char *line, const char *deli)
 
 	remake = NULL;
 	f_line = line;
+	printf("%s\n", deli);
 	while (*line != '\0')
 	{
 		if (*line == '$' && ft_strchr(deli, '\'') != NULL)
