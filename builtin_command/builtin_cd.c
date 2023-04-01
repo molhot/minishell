@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:18:23 by user              #+#    #+#             */
-/*   Updated: 2023/04/01 13:03:40 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/01 13:50:37 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	ms_cd(t_command *command)
 	cwd = getcwd(NULL, 0);
 	if (chdir(commands[1]) < 0 || cwd == NULL)
 	{
-		printf("check\n");
 		perror("chdir");
 		free_all(cwd, commands);
 		g_env->err_status = 1;

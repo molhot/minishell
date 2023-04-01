@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:19:18 by user              #+#    #+#             */
-/*   Updated: 2023/03/30 02:22:11 by kazuki           ###   ########.fr       */
+/*   Updated: 2023/04/01 13:46:07 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,11 @@ int	ms_echo(char *line, t_command *command)
 		else
 		{
 			while (commands[position] != NULL)
+			{
 				ft_putstr_fd(commands[position++], 1);
+				if (commands[position] != NULL)
+					ft_putstr_fd(" ", 1);
+			}
 		}
 	}
 	else
@@ -56,7 +60,11 @@ int	ms_echo(char *line, t_command *command)
 		if (commands[position] == NULL)
 			ft_putendl_fd("", 1);
 		while (commands[position] != NULL)
-			ft_putendl_fd(commands[position++], 1);
+		{
+			ft_putstr_fd(commands[position++], 1);
+			ft_putstr_fd(" ", 1);
+		}
+		ft_putstr_fd("\n", 1);
 	}
 	free_commands(commands);
 	g_env->err_status = 0;
