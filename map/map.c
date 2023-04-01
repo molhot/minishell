@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 05:30:12 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/16 14:10:02 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/30 12:03:03 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ void	map_set(t_map **map, char *name, char *value)
 		if (ft_strcmp(itr->name, name) == 0)
 		{
 			free(itr->value);
-			itr->value = ft_strdup(value);
+			if (value != NULL)
+				itr->value = ft_strdup(value);
+			else
+				itr->value = NULL;
 			return ;
 		}
 		itr = itr->next;

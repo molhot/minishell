@@ -50,10 +50,10 @@ void	export_argsremake(t_token *token)
 	{
 		dup = NULL;
 		sub = token->word;
-		if (ft_strcmp(sub, "\0") == 0)
+		if (sub != NULL && ft_strcmp(sub, "\0") == 0)
 			dup = ft_strdup("");
 		free_sub = sub;
-		while (*sub != '\0' && sub != NULL)
+		while (sub != NULL && *sub != '\0')
 		{
 			export_argsremake_sp(position, &sub, &dup, free_sub);
 			position++;

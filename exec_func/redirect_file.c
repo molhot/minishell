@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 01:32:50 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/26 21:14:07 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/26 21:16:21 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,48 +23,6 @@ int	stashfd(int fd)
 	xclose(fd);
 	return (stashfd);
 }
-
-// static	int	heredoc(const char *deli)
-// {
-// 	char	*line;
-// 	char	*re_line;
-// 	int		pfd[2];
-
-// 	if (pipe(pfd) < 0)
-// 		fatal_error("pipe");
-// 	while (1)
-// 	{
-// 		line = readline("input > ");
-// 		if (line == NULL)
-// 			break ;
-// 		re_line = re_makeinwd(line);
-// 		if (ft_strcmp(re_line, deli) == 0)
-// 		{
-// 			free(re_line);
-// 			break ;
-// 		}
-// 		ft_putendl_fd(re_line, pfd[1]);
-// 		free(re_line);
-// 	}
-// 	close (pfd[1]);
-// 	return (pfd[0]);
-// }
-
-// int	obtain_fd(t_redirect *redirect)
-// {
-// 	int	fd;
-// 	if (redirect->type == IN)
-// 		fd = open(redirect->file_path, O_RDONLY);
-// 	if (redirect->type == HEREDOC)
-// 		fd = heredoc(redirect->file_path);
-// 	if (redirect->type == OUT)
-// 		fd = open(redirect->file_path,
-// 		O_CREAT | O_WRONLY | O_TRUNC, 0644);
-// 	if (redirect->type == APPEND)
-// 		fd = open(redirect->file_path,
-// 		O_CREAT | O_WRONLY | O_APPEND, 0644);
-// 	return (fd);
-// }
 
 void	ready_redirectionfile(t_node *node)
 {

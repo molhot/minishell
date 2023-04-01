@@ -36,6 +36,7 @@ static char	*expand_args_quote(char *args, char *args_free)
 	new_word = NULL;
 	while (*args != '\0')
 	{
+		//printf("%s\n", args);
 		if (*args == '\\')
 			b_slush_append(&args, &new_word);
 		else if ((*args == '\'' || *args == '\"') && *(args + 1) != '\0')

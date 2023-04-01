@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 19:59:30 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/26 14:22:04 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/30 01:40:13 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ char	**args_to_argv(t_token *args)
 	itr = args;
 	while (i != len)
 	{
-		argv[i] = ft_strdup(itr->word);
+		if (itr->word == NULL)
+			argv[i] = NULL;
+		else
+			argv[i] = ft_strdup(itr->word);
 		itr = itr->next;
 		i++;
 	}
@@ -66,7 +69,7 @@ char	*searchpath(const char *cmd)
 	char	*value;
 	char	*end;
 
-	value = getenv("PATH");
+	value = map_get(g_env, "PATH");
 	if (ft_strcmp(cmd, "") == 0)
 		return (NULL);
 	path = (char *)malloc(sizeof(char) * PATH_MAX);
@@ -74,7 +77,7 @@ char	*searchpath(const char *cmd)
 		fatal_error("malloc");
 	if (ft_strlen(cmd) > PATH_MAX)
 		return (NULL);
-	while (*value != '\0')
+	while (value != NULL && *value != '\0')
 	{
 		end = searchpath_utils(path, value, cmd);
 		if (access(path, X_OK) == 0)

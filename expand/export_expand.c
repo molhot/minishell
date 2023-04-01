@@ -62,7 +62,7 @@ static char	*expand_args_expote(char *args, char *args_free)
 	{
 		if (*args == '\\')
 		{
-			append_char(&new_word, *args++);
+			args++;
 			append_char(&new_word, *args++);
 		}
 		else if ((*args == '\'' || *args == '\"') && *(args + 1) != '\0')

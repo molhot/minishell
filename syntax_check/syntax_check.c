@@ -34,6 +34,14 @@ static bool	check_opsyntax(t_token *tok)
 	return (true);
 }
 
+static bool	errorsyntax(char *str)
+{
+	printf("-minishell: syntax error near unexpected token \
+	`%s'\n", str);
+	g_env->err_status = 258;
+	return (false);
+}
+
 static bool	check_redirectsyntax(t_token *tok)
 {
 	if (tok->next->kind == TK_EOF)
@@ -42,24 +50,12 @@ static bool	check_redirectsyntax(t_token *tok)
 		return (false);
 	}
 	if (tok->next->kind == TK_REDIRECT && tok->word[0] != tok->next->word[0])
-	{
-		printf("-minishell: syntax error near unexpected token \
-		`%s'\n", tok->next->word);
-		return (false);
-	}
+		return (errorsyntax(tok->next->word));
 	if (tok->kind == TK_REDIRECT && tok->next->kind == TK_REDIRECT \
 	&& tok->next->next->kind == TK_REDIRECT)
-	{
-		printf("-minishell: syntax error near unexpected token `%s'\n", \
-		tok->next->next->word);
-		return (false);
-	}
+		return (errorsyntax(tok->next->word));
 	if (tok->next->kind == TK_OP)
-	{
-		printf("-minishell: syntax error near unexpected token \
-		`%s'\n", tok->next->word);
-		return (false);
-	}
+		return (errorsyntax(tok->next->word));
 	return (true);
 }
 

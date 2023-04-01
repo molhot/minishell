@@ -6,11 +6,18 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:22:25 by user              #+#    #+#             */
-/*   Updated: 2023/03/26 20:38:25 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/03/30 12:29:33 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+static bool	sp_wdch(char c)
+{
+	if (c == '$' || c == '\\' || c == ' ' || c == '\t')
+		return (true);
+	return (false);
+}
 
 static bool	exportwd_check(char *arg)
 {
@@ -21,7 +28,7 @@ static bool	exportwd_check(char *arg)
 	arg++;
 	while (*arg != '\0' && *arg != '=')
 	{
-		if (!ft_isascii(*arg))
+		if (!ft_isascii(*arg) || sp_wdch(*arg) == true)
 			return (false);
 		arg++;
 	}

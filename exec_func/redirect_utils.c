@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-char	*re_makeinwd(char *line)
+char	*re_makeinwd(char *line, const char *deli)
 {
 	char	*remake;
 	char	*f_line;
@@ -21,7 +21,7 @@ char	*re_makeinwd(char *line)
 	f_line = line;
 	while (*line != '\0')
 	{
-		if (*line == '$')
+		if (*line == '$' && ft_strchr(deli, '\'') != NULL)
 			expand_doller(&remake, &line, line);
 		else
 			append_char(&remake, *line++);
@@ -43,7 +43,7 @@ static	int	heredoc(const char *deli)
 		line = readline("input > ");
 		if (line == NULL)
 			break ;
-		re_line = re_makeinwd(line);
+		re_line = re_makeinwd(line, deli);
 		if (ft_strcmp(re_line, deli) == 0)
 		{
 			free(re_line);
