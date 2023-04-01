@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:18:23 by user              #+#    #+#             */
-/*   Updated: 2023/04/01 14:45:20 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/01 16:51:12 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,23 +78,26 @@ void	ms_cd(t_command *command)
 	if (chdir(commands[1]) < 0)// || cwd == NULL)
 	{
 		perror("chdir");
-		//free_all(cwd, commands);
+		free_all(NULL, commands);
 		g_env->err_status = 1;
 		return ;
 	}
 	cwd = getcwd(NULL, 0);
-	if (getcwd(NULL, 0) == NULL)
+	if (cwd == NULL)
 	{
 		printf("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n");
 		char *nowpath;
 		char *afterpath;
 		char *lastpath;
+		char *dst;
 
 		nowpath = map_get(g_env, "PWD");
 		afterpath = ft_strjoin(nowpath, "/");
-		lastpath = ft_strjoin(afterpath, commands[1]);
-		//printf("%s\n", afterpath);
+		dst = commands[1];
+		lastpath = ft_strjoin(afterpath, dst);
+		free(afterpath);
 		map_set(&g_env, "PWD", lastpath);
+		free(lastpath);
 		free_all(cwd, commands);
 		g_env->err_status = 0;
 		return ;
