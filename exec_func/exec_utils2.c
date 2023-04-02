@@ -6,7 +6,7 @@
 /*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 23:03:52 by kazuki            #+#    #+#             */
-/*   Updated: 2023/04/02 23:04:57 by kazuki           ###   ########.fr       */
+/*   Updated: 2023/04/02 23:13:23 by kazuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*searchpath(const char *cmd)
 
 char	*accessok_file(char *path)
 {
-	char *dup;
+	char	*dup;
 
 	dup = ft_strdup(path);
 	free(path);
