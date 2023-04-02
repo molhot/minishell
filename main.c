@@ -61,7 +61,7 @@ int	main(void)
 	char	*line;
 
 	rl_outstream = stderr;
-	env_init(&g_env);
+	env_init();
 	while (1)
 	{
 		signal(SIGINT, sigint_handler);

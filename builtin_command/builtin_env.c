@@ -12,10 +12,18 @@
 
 #include "../minishell.h"
 
-void	ms_env(void)
+void	ms_env(t_command *command)
 {
-	t_item	*itr;
+	t_item	    *itr;
+  char        **commands;
 
+  commands = command_to_array(command);
+  if (commands[1])
+  {
+    ft_putstr_fd("env: does not accept any arguments\n", 2);
+    free_commands(commands);
+    return;
+  }
 	itr = g_env->item_head;
 	while (itr != NULL)
 	{
@@ -23,5 +31,6 @@ void	ms_env(void)
 			printf("%s=%s\n", itr->name, itr->value);
 		itr = itr->next;
 	}
+  free(commands);
 	g_env->err_status = 0;
 }
