@@ -3,23 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
+/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:22:25 by user              #+#    #+#             */
-/*   Updated: 2023/03/30 12:29:33 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/02 22:12:47 by kazuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static bool	sp_wdch(char c)
-{
-	if (c == '$' || c == '\\' || c == ' ' || c == '\t')
-		return (true);
-	return (false);
-}
-
-static bool	exportwd_check(char *arg)
+static bool	is_valid_export_arguments(char *arg)
 {
 	if (!('a' <= *arg && *arg <= 'z'))
 		if (!('A' <= *arg && *arg <= 'Z'))
@@ -28,7 +21,7 @@ static bool	exportwd_check(char *arg)
 	arg++;
 	while (*arg != '\0' && *arg != '=')
 	{
-		if (!ft_isascii(*arg) || sp_wdch(*arg) == true)
+		if (!ft_isascii(*arg) || is_special_word_character(*arg) == true)
 			return (false);
 		arg++;
 	}
@@ -47,24 +40,24 @@ void	replace_word(char *src)
 	}
 }
 
-void	map_insert(char *s, char *e, char *l)
+void	insert_env_variable(char *start, char *end, char *last)
 {
-	char		*set1;
-	char		*set2;
+	char	*key;
+	char	*value;
 
-	set1 = ft_strndup(s, e - s);
-	if (l == e)
-		set2 = ft_strdup("\0");
+	key = ft_strndup(start, end - start);
+	if (last == end)
+		value = ft_strdup("");
 	else
-		set2 = ft_strndup(e + 1, l - e - 1);
-	map_set(&g_env, set1, set2);
-	replace_word(set1);
-	replace_word(set2);
-	free(set1);
-	free(set2);
+		value = ft_strndup(end + 1, last - end - 1);
+	map_set(&g_env, key, value);
+	replace_word(key);
+	replace_word(value);
+	free(key);
+	free(value);
 }
 
-void	exporterrorcheck(char **command)
+void	check_export_arguments(char **command)
 {
 	char	*end;
 	char	*equal;
@@ -73,7 +66,7 @@ void	exporterrorcheck(char **command)
 	count = 1;
 	while (command[count] != NULL)
 	{
-		if (exportwd_check(command[count]) == false)
+		if (!is_valid_export_arguments(command[count]))
 			puts_errorstring_export(command[count]);
 		else
 		{
@@ -87,7 +80,7 @@ void	exporterrorcheck(char **command)
 					map_set(&g_env, command[count], NULL);
 			}
 			else
-				map_insert(command[count], equal, end);
+				insert_env_variable(command[count], equal, end);
 		}
 		(count)++;
 	}
@@ -109,7 +102,7 @@ void	ms_export(char *line, t_command *command)
 			g_env->err_status = 0;
 			return (show_sortedmap());
 		}
-		exporterrorcheck(commands);
+		check_export_arguments(commands);
 	}
 	free_commands(commands);
 }

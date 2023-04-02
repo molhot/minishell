@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_file.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
+/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 01:32:50 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/26 21:16:21 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/02 22:41:47 by kazuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	stashfd(int fd)
 	return (stashfd);
 }
 
-void	ready_redirectionfile(t_node *node)
+void	ready_redirection_file(t_node *node)
 {
 	int			fd;
 	t_redirect	*redirect;
