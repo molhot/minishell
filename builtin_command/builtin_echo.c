@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
+/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:19:18 by user              #+#    #+#             */
-/*   Updated: 2023/04/01 14:57:07 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/02 21:46:20 by kazuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,41 @@ bool	check_option(char *option)
 	return (false);
 }
 
+static void	print_with_newline(char **commands)
+{
+	size_t	i;
+
+	i = 0;
+	if (commands[i] == NULL)
+		ft_putstr_fd("", 1);
+	while (commands[i] != NULL)
+	{
+		ft_putstr_fd(commands[i++], 1);
+		ft_putstr_fd(" ", 1);
+	}
+	ft_putstr_fd("\n", 1);
+}
+
+static void	print_without_newline(char **commands)
+{
+	size_t	i;
+
+	i = 1;
+	while (commands[i] != NULL && check_option(commands[i]))
+		i++;
+	if (!commands[i])
+		ft_putchar_fd('\0', 1);
+	else
+	{
+		while (commands[i] != NULL)
+		{
+			ft_putstr_fd(commands[i++], 1);
+			if (commands[i] != NULL)
+				ft_putstr_fd(" ", 1);
+		}
+	}
+}
+
 int	ms_echo(char *line, t_command *command)
 {
 	char	**commands;
@@ -40,32 +75,9 @@ int	ms_echo(char *line, t_command *command)
 	if (!commands)
 		fatal_error("malloc");
 	if (commands[1] != NULL && check_option(commands[position]))
-	{
-		while (commands[position] != NULL && check_option(commands[position]))
-			position++;
-		if (!commands[position])
-			ft_putchar_fd('\0', 1);
-		else
-		{
-			while (commands[position] != NULL)
-			{
-				ft_putstr_fd(commands[position++], 1);
-				if (commands[position] != NULL)
-					ft_putstr_fd(" ", 1);
-			}
-		}
-	}
+		print_without_newline(commands);
 	else
-	{
-		if (commands[position] == NULL)
-			ft_putstr_fd("", 1);
-		while (commands[position] != NULL)
-		{
-			ft_putstr_fd(commands[position++], 1);
-			ft_putstr_fd(" ", 1);
-		}
-		ft_putstr_fd("\n", 1);
-	}
+		print_with_newline(commands);
 	free_commands(commands);
 	g_env->err_status = 0;
 	return (0);

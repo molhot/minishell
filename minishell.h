@@ -106,6 +106,7 @@ typedef struct s_map_copy {
 typedef struct s_map{
 	t_item	*item_head;
 	int		err_status;
+  char    *MS_PWD;
 }				t_map;
 
 extern t_map				*g_env;
@@ -123,7 +124,7 @@ void		append_item(t_item **itr, t_item *item);
 
 bool		is_builtin(char *line);
 void		ms_cd(t_command *command);
-void		ms_env(void);
+void		ms_env(t_command *command);
 int			ms_echo(char *line, t_command *command);
 void		ms_exit(char *line, t_command *command);
 void		ms_export(char *line, t_command *command);
@@ -135,7 +136,7 @@ void		puts_errorstring_export(char *str);
 
 /******************* env *****************/
 
-void		env_init(t_map **env);
+void		env_init(void);
 char		*get_name(char *name_and_value);
 char		**ready_nextenviron(void);
 
@@ -258,7 +259,6 @@ void		free_node(t_node *node);
 void		free_commands(char **commands);
 void		free_redirect(t_redirect *redirect);
 pid_t		exec_pipeline(t_node *node);
-void		env_init(t_map **env);
 bool		startswith(const char *s, const char *keyword);
 
 /**************** free ****************/

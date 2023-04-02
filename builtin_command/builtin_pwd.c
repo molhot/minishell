@@ -20,10 +20,6 @@ void	ms_pwd(void)
 	if (getcwd(buf, PATH_MAX))
 		printf("%s\n", buf);
 	else
-	{
-		//printf("%s\n", getenv("PWD"));
-		printf("%s\n", map_get(g_env, "PWD"));
-	}
-	//else //mouikkonohennsuu
+		printf("%s\n", g_env->MS_PWD);
 	g_env->err_status = 0;
 }

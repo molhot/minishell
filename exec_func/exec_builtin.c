@@ -15,7 +15,7 @@
 int	do_builtin(char *line, t_command *command)
 {
 	if (ft_strcmp(command->args->word, "env") == 0)
-		ms_env();
+		ms_env(command);
 	else if (ft_strncmp(command->args->word, "export", 6) == 0)
 		ms_export(line, command);
 	else if (ft_strncmp(command->args->word, "pwd", 3) == 0)

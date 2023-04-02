@@ -83,7 +83,7 @@ char	*get_name(char *name_and_value)
 	return (name);
 }
 
-void	env_init(t_map **env)
+void	env_init(void)
 {
 	size_t			i;
 	char			*name;
@@ -92,19 +92,25 @@ void	env_init(t_map **env)
 	extern char		**environ;
 
 	i = 0;
-	*env = malloc(sizeof(t_map));
-	(*env)->err_status = 0;
-	(*env)->item_head = NULL;
+	g_env = malloc(sizeof(t_map));
+	g_env->err_status = 0;
+	g_env->item_head = NULL;
 	while (environ[i] != NULL)
 	{
+    if (ft_strncmp(environ[i], "PWD", 3) == 0)
+    {
+      if (getcwd(cwd, sizeof(cwd)) == NULL)
+          fatal_error("getcwd");
+      g_env->MS_PWD = ft_strdup(cwd);
+    }
 		name = get_name(environ[i]);
 		value = getenv(name);
-		map_set(env, name, value);
+		map_set(&g_env, name, value);
 		free(name);
 		i++;
 	}
-	getcwd(cwd, sizeof(cwd));
+	/*getcwd(cwd, sizeof(cwd));
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 		fatal_error("getcwd");
-	map_set(env, "PWD", cwd);
+	map_set(env, "PWD", cwd);*/
 }
