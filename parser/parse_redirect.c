@@ -6,7 +6,7 @@
 /*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 23:22:25 by user              #+#    #+#             */
-/*   Updated: 2023/04/02 22:38:02 by kazuki           ###   ########.fr       */
+/*   Updated: 2023/04/02 22:55:14 by kazuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ bool	parse_redirect(t_redirect **redirect, t_token **tok)
 		(*redirect)->type = APPEND;
 		*tok = (*tok)->next;
 	}
-	else if (ft_strcmp(tok_word, "<") == 0 && ft_strcmp(tok_next_word,
+	else if (ft_strcmp(tok_word, "<") == 0 && ft_strcmp(tok_next_word, \
 				"<") == 0)
 	{
 		(*redirect)->type = HEREDOC;
@@ -71,7 +71,7 @@ void	free_redirect(t_redirect *redirect)
 void	ready_redirect_in_out(t_node *node, bool *flag, bool f_content)
 {
 	if (f_content == true)
-		node->command->redirect =
+		node->command->redirect = \
 			(t_redirect **)malloc(sizeof(t_redirect *) * 1);
 	node->command->in_fd[0] = STDIN_FILENO;
 	node->command->in_fd[1] = -1;
