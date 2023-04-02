@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
+/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:28:10 by user              #+#    #+#             */
-/*   Updated: 2023/04/01 15:35:29 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/02 22:41:05 by kazuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,11 +166,13 @@ t_node		*parse(t_token *tok);
 bool		parse_redirect(t_redirect **redirect, t_token **tok);
 void		parse_word(t_token **args, t_token *tok, t_token **tok_o);
 void		append_tok(t_token **tokens, t_token *tok);
-void		ready_redirectinout(t_node *node, bool *flag, bool f_content);
+void		ready_redirect_in_out(t_node *node, bool *flag, bool f_content);
 bool		at_eof(t_token *tok);
 t_node		*new_node(t_node_kind kind);
 t_token		*tokdup(t_token *tok);
 void		append_tok(t_token **tokens, t_token *tok);
+t_redirect	*tok_to_redirect_f(bool *is_first, t_node *node, t_token **tok);
+t_redirect	*tok_to_redirect_(bool *is_first, t_node *node, t_token **tok);
 
 /***************** expand ****************/
 
@@ -209,7 +211,7 @@ void		exec(t_node *node);
 void		exec_check(t_node *node, char *path);
 int			do_builtin(char *line, t_command *command);
 int			abusolute_path(char *line);
-void		ready_redirectionfile(t_node *node);
+void		ready_redirection_file(t_node *node);
 int			redirect_reconect(t_command *command);
 void		prepare_pipe(t_node *node);
 void		prepare_pipe_child(t_node *node);
@@ -251,6 +253,7 @@ long		ms_atoi(char *str);
 bool		is_valid_fd(int fd);
 int			xdup2(int fildes, int fildes2);
 int			xclose(int fd);
+bool		is_special_word_character(char c);
 
 /************* errorhandle *************/
 
