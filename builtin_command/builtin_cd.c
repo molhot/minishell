@@ -43,8 +43,10 @@ void	ms_cd(t_command *command)
 		getcwd: cannot access parent directories: No such file or directory\n");
 	else
 	{
+		map_set(&g_env, "OLDPWD", g_env->ms_pwd);
 		free(g_env->ms_pwd);
 		g_env->ms_pwd = ft_strdup(buf);
+		map_set(&g_env, "PWD", g_env->ms_pwd);
 	}
 	free_commands(commands);
 	g_env->err_status = 0;
