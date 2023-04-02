@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
+/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:27:43 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/16 01:58:16 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/02 22:42:41 by kazuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_map		*g_env;
 static void	exec_switching(t_node *node)
 {
 	if (node->command->args == NULL && node->command->redirect != NULL)
-		ready_redirectionfile(node);
+		ready_redirection_file(node);
 	else if (node->next == NULL && is_builtin(node->command->args->word))
 		builtin_exec(node);
 	else if (node->command->args->word != NULL)

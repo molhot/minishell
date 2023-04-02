@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
+/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 05:32:46 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/16 01:57:35 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/02 22:39:53 by kazuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_node	*ready_nextnode(bool *flag, t_node *node, t_token **token)
 		(*(node->command->redirect)) = NULL;
 	*flag = true;
 	node->next = new_node(ND_SIMPLE_CMD);
-	ready_redirectinout(node->next, &(*flag), false);
+	ready_redirect_in_out(node->next, &(*flag), false);
 	node->next->command->redirect = \
 	(t_redirect **)malloc(sizeof(t_redirect *) * 1);
 	node->next->command->args = NULL;
@@ -70,7 +70,7 @@ t_node	*parse(t_token *tok)
 
 	node = new_node(ND_SIMPLE_CMD);
 	head = node;
-	ready_redirectinout(node, &first_action, true);
+	ready_redirect_in_out(node, &first_action, true);
 	tok_parsing(tok, node, first_action);
 	return (head);
 }

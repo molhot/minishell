@@ -6,7 +6,7 @@
 /*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 01:39:08 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/30 00:51:12 by kazuki           ###   ########.fr       */
+/*   Updated: 2023/04/02 22:42:05 by kazuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	exec(t_node *node)
 		last_pid = -1;
 	else
 	{
-		ready_redirectionfile(node);
+		ready_redirection_file(node);
 		last_pid = exec_pipeline(node);
 	}
 	wait_pipeline(last_pid);

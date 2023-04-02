@@ -6,7 +6,7 @@
 /*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:18:23 by user              #+#    #+#             */
-/*   Updated: 2023/04/02 21:34:41 by kazuki           ###   ########.fr       */
+/*   Updated: 2023/04/02 23:17:47 by kazuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	ms_cd(t_command *command)
 		getcwd: cannot access parent directories: No such file or directory\n");
 	else
 	{
-		free(g_env->MS_PWD);
-		g_env->MS_PWD = ft_strdup(buf);
+		free(g_env->ms_pwd);
+		g_env->ms_pwd = ft_strdup(buf);
 	}
 	free_commands(commands);
 	g_env->err_status = 0;
