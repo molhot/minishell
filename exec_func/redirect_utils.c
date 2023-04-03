@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-char	*re_makeinwd(char *line, bool exok)
+static char	*re_makeinwd(char *line, bool exok, const char *deli)
 {
 	char	*remake;
 	char	*f_line;
@@ -21,7 +21,7 @@ char	*re_makeinwd(char *line, bool exok)
 	f_line = line;
 	while (*line != '\0')
 	{
-		if (*line == '$' && exok == true)
+		if (*line == '$' && exok == true && ft_strcmp(line, deli) != 0)
 			expand_doller(&remake, &line, line);
 		else
 			append_char(&remake, *line++);
@@ -43,7 +43,7 @@ static	int	heredoc(const char *deli, bool ex_ok)
 		line = readline("input > ");
 		if (line == NULL)
 			break ;
-		re_line = re_makeinwd(line, ex_ok);
+		re_line = re_makeinwd(line, ex_ok, deli);
 		if (ft_strcmp(re_line, deli) == 0)
 		{
 			free(re_line);
@@ -60,6 +60,8 @@ int	obtain_fd(t_redirect *redirect)
 {
 	int	fd;
 
+	// if (redirect->file_path == NULL)
+	// 	return (-1);
 	if (redirect->type == IN)
 		fd = open(redirect->file_path, O_RDONLY);
 	if (redirect->type == HEREDOC)

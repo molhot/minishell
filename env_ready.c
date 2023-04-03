@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_ready.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 17:39:39 by user              #+#    #+#             */
-/*   Updated: 2023/04/02 23:18:27 by kazuki           ###   ########.fr       */
+/*   Updated: 2023/04/03 23:51:04 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,11 @@ void	env_init(void)
 	g_env = malloc(sizeof(t_map));
 	g_env->err_status = 0;
 	g_env->item_head = NULL;
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+		fatal_error("getcwd");
+	g_env->ms_pwd = ft_strdup(cwd);
 	while (environ[i] != NULL)
 	{
-		if (ft_strncmp(environ[i], "PWD", 3) == 0)
-		{
-			if (getcwd(cwd, sizeof(cwd)) == NULL)
-				fatal_error("getcwd");
-			g_env->ms_pwd = ft_strdup(cwd);
-		}
 		name = get_name(environ[i]);
 		value = getenv(name);
 		map_set(&g_env, name, value);
