@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_pwd.c                                      :+:      :+:    :+:   */
+/*   is_special_word_character.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/16 20:23:35 by user              #+#    #+#             */
-/*   Updated: 2023/04/02 23:17:56 by kazuki           ###   ########.fr       */
+/*   Created: 2023/04/02 22:10:33 by kazuki            #+#    #+#             */
+/*   Updated: 2023/04/02 22:11:02 by kazuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ms_pwd(void)
+bool	is_special_word_character(char c)
 {
-	char	buf[PATH_MAX];
-
-	if (getcwd(buf, PATH_MAX))
-		printf("%s\n", buf);
-	else
-		printf("%s\n", g_env->ms_pwd);
-	g_env->err_status = 0;
+	if (c == '$' || c == '\\' || c == ' ' || c == '\t')
+		return (true);
+	return (false);
 }

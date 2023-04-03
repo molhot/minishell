@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
+/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:18:23 by user              #+#    #+#             */
-/*   Updated: 2023/04/01 16:51:12 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/03 01:44:22 by kazuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../minishell.h"
 
-static	void	show_manual(char **commands)
+static void	update_environment_variables(char *path);
+static void	change_directory(char *path);
+
+static void	show_manual(char **commands)
 {
 	free_commands(commands);
 	ft_putendl_fd("cd with only a relative or absolute path", 2);
@@ -21,91 +23,47 @@ static	void	show_manual(char **commands)
 	return ;
 }
 
-static	bool	is_sym(char *path)
-{
-	struct stat	st;
-
-	if (lstat(path, &st) == 0)
-	{
-		if (S_ISLNK(st.st_mode) != 0)
-			return (true);
-	}
-	return (false);
-}
-
-void	set_symlink(char *path)
-{
-	char	*old;
-	char	*tmp;
-	char	*trim_path;
-	char	*new;
-
-	old = map_get(g_env, "PWD");
-	tmp = ft_strjoin(old, "/");
-	if (!tmp)
-		fatal_error("malloc");
-	if (ft_strrchr(path, '/'))
-		trim_path = ft_strrchr(path, '/') + 1;
-	else
-		trim_path = path;
-	new = ft_strjoin(tmp, trim_path);
-	if (!new)
-		fatal_error("malloc");
-	free(tmp);
-	if (ft_strcmp(ft_strrchr(old, '/') + 1, trim_path) != 0)
-		map_set(&g_env, "PWD", new);
-	free(new);
-}
-
-static	void	free_all(char *cwd, char **commands)
-{
-	free(cwd);
-	free_commands(commands);
-}
-
 void	ms_cd(t_command *command)
 {
 	char	**commands;
-	char	buf[256];
-	char	*cwd;
 
 	commands = command_to_array(command);
 	if (!commands)
 		fatal_error("malloc");
-	if (commands[1] == NULL || commands[2] != NULL \
-	|| ft_strchr(commands[1], '~'))
+	if (commands[1] == NULL || commands[2] != NULL || ft_strchr(commands[1],
+			'~'))
 		return (show_manual(commands));
-	if (chdir(commands[1]) < 0)// || cwd == NULL)
+	change_directory(commands[1]);
+	free_commands(commands);
+}
+
+static void	change_directory(char *path)
+{
+	char	buf[PATH_MAX];
+
+	if (chdir(path) < 0)
 	{
 		perror("chdir");
-		free_all(NULL, commands);
-		g_env->err_status = 1;
 		return ;
 	}
-	cwd = getcwd(NULL, 0);
-	if (cwd == NULL)
-	{
-		printf("cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n");
-		char *nowpath;
-		char *afterpath;
-		char *lastpath;
-		char *dst;
-
-		nowpath = map_get(g_env, "PWD");
-		afterpath = ft_strjoin(nowpath, "/");
-		dst = commands[1];
-		lastpath = ft_strjoin(afterpath, dst);
-		free(afterpath);
-		map_set(&g_env, "PWD", lastpath);
-		free(lastpath);
-		free_all(cwd, commands);
-		g_env->err_status = 0;
-		return ;
-	}
-	if (is_sym(commands[1]))
-		set_symlink(commands[1]);
 	else
-		map_set(&g_env, "PWD", getcwd(buf, sizeof(buf)));
-	free_all(cwd, commands);
-	g_env->err_status = 0;
+	{
+		if (getcwd(buf, sizeof(buf)) == NULL)
+			ft_putendl_fd("cd: error retrieving current directory: \
+		getcwd: cannot access parent directories: No such file or directory\n", \
+							2);
+		else
+		{
+			update_environment_variables(buf);
+		}
+		g_env->err_status = 0;
+	}
+}
+
+static void	update_environment_variables(char *path)
+{
+	map_set(&g_env, "OLDPWD", g_env->ms_pwd);
+	free(g_env->ms_pwd);
+	g_env->ms_pwd = ft_strdup(path);
+	map_set(&g_env, "PWD", g_env->ms_pwd);
 }

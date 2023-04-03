@@ -3,60 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redirect.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
+/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 23:22:25 by user              #+#    #+#             */
-/*   Updated: 2023/04/01 15:41:59 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/02 22:55:14 by kazuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_redirect	*tok_to_redirect_f(bool *flag, t_node *node, t_token **tok)
+static void	check_expand_ok(t_redirect *redirect)
 {
-	parse_redirect(&(*node->command->redirect), &(*tok));
-	(*node->command->redirect)->ambigous = false;
-	*flag = false;
-	(*node->command->redirect)->before = NULL;
-	return (*node->command->redirect);
-}
+	const char	*file_path;
 
-t_redirect	*tok_to_redirect(t_redirect *redirect, t_token **tok)
-{
-	parse_redirect(&(redirect->next), &(*tok));
-	redirect->next->ambigous = false;
-	redirect->next->before = redirect;
-	return (redirect->next);
+	file_path = redirect->file_path;
+	if (ft_strchr(file_path, '\'') || ft_strchr(file_path, '\"'))
+	{
+		if (redirect->type == HEREDOC)
+			redirect->expand_ok = false;
+	}
+	else
+		redirect->expand_ok = true;
 }
 
 bool	parse_redirect(t_redirect **redirect, t_token **tok)
 {
+	const char	*tok_word;
+	const char	*tok_next_word;
+
 	*redirect = malloc(sizeof(t_redirect));
-	if (ft_strcmp((*tok)->word, ">") == 0 && \
-	ft_strcmp((*tok)->next->word, ">") == 0)
+	tok_word = (*tok)->word;
+	tok_next_word = (*tok)->next->word;
+	if (ft_strcmp(tok_word, ">") == 0 && ft_strcmp(tok_next_word, ">") == 0)
 	{
 		(*redirect)->type = APPEND;
 		*tok = (*tok)->next;
 	}
-	else if (ft_strcmp((*tok)->word, "<") == 0 \
-	&& ft_strcmp((*tok)->next->word, "<") == 0)
+	else if (ft_strcmp(tok_word, "<") == 0 && ft_strcmp(tok_next_word, \
+				"<") == 0)
 	{
 		(*redirect)->type = HEREDOC;
 		*tok = (*tok)->next;
 	}
-	else if (ft_strcmp((*tok)->word, "<") == 0)
+	else if (ft_strcmp(tok_word, "<") == 0)
 		(*redirect)->type = IN;
 	else
 		(*redirect)->type = OUT;
 	if ((*tok)->next->kind == TK_WORD)
 		(*redirect)->file_path = ft_strdup((*tok)->next->word);
-	if (ft_strchr((*tok)->next->word, '\'') != NULL || ft_strchr((*tok)->next->word, '\"') != NULL)
-	{
-		if ((*redirect)->type == HEREDOC)
-			(*redirect)->expand_ok = false;
-	}
-	else
-		(*redirect)->expand_ok = true;
+	check_expand_ok(*redirect);
 	return (true);
 }
 
@@ -73,11 +68,11 @@ void	free_redirect(t_redirect *redirect)
 	free_redirect(next);
 }
 
-void	ready_redirectinout(t_node *node, bool *flag, bool f_content)
+void	ready_redirect_in_out(t_node *node, bool *flag, bool f_content)
 {
 	if (f_content == true)
 		node->command->redirect = \
-		(t_redirect **)malloc(sizeof(t_redirect *) * 1);
+			(t_redirect **)malloc(sizeof(t_redirect *) * 1);
 	node->command->in_fd[0] = STDIN_FILENO;
 	node->command->in_fd[1] = -1;
 	node->command->out_fd[0] = -1;

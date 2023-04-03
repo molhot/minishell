@@ -43,7 +43,7 @@ void	builtin_exec(t_node *node)
 	argv = args_to_argv(node->command->args);
 	if (!argv)
 		fatal_error("malloc");
-	ready_redirectionfile(node);
+	ready_redirection_file(node);
 	exec_check(node, argv[0]);
 	i = 0;
 	while (argv[i])
