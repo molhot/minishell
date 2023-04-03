@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:20:06 by user              #+#    #+#             */
-/*   Updated: 2023/04/02 21:59:10 by kazuki           ###   ########.fr       */
+/*   Updated: 2023/04/03 23:03:56 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ void	ms_env(t_command *command)
 			printf("%s=%s\n", itr->name, itr->value);
 		itr = itr->next;
 	}
-	free(commands);
+	free_commands(commands);
 	g_env->err_status = 0;
 }
