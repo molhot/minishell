@@ -3,10 +3,11 @@ SRCS	=	tokenizer/tokenizer.c tokenizer/create_token.c\
 			tokenizer/make_op_token.c tokenizer/make_redirect_token.c tokenizer/make_wd_token.c\
 			syntax_check/syntax_check.c syntax_check/tokencheck.c syntax_check/tokencheck_quote.c\
 			parser/parser.c parser/parse_word.c parser/parse_redirect.c parser/parser_utils.c\
+			parser/tok_to_redirect.c\
 			expand/expand.c expand/expand_doller.c expand/appendchar.c expand/expand_specialchar.c expand/export_expand.c expand/expand_utils.c\
 			expand/expand_quote.c expand/expand_redirection.c expand/remake_token.c expand/expand_specialparam.c\
 			exec_func/exec_func.c exec_func/exec_builtin.c exec_func/pipe_func.c exec_func/redirect_file.c expand/export_argsremake.c exec_func/redirect_utils.c\
-			exec_func/exec_absolutepath.c exec_func/exec_utils.c exec_func/stashfd_helper.c exec_func/builtin_exec.c exec_func/redirect_file_utils.c\
+			exec_func/exec_absolutepath.c exec_func/exec_utils.c exec_func/exec_utils2.c exec_func/stashfd_helper.c exec_func/builtin_exec.c exec_func/redirect_file_utils.c\
 			word_rolechecker/is_blank.c word_rolechecker/is_metacharacter.c word_rolechecker/is_space.c word_rolechecker/consume_blank.c word_rolechecker/word_blankcheck.c\
 			word_rolechecker/is_operator.c word_rolechecker/is_redirect.c word_rolechecker/is_word.c word_rolechecker/startswith_keyword.c\
 			builtin_command/builtin_cd.c builtin_command/builtin_echo.c builtin_command/builtin_env.c\
@@ -16,7 +17,8 @@ SRCS	=	tokenizer/tokenizer.c tokenizer/create_token.c\
 			signalhandler/sigint_handler.c expand/expand_specialparam_utils.c\
 			map/map.c map/map_utils.c\
 			free/free_token.c\
-			env_ready.c main.c error.c ms_atoi.c
+			env_ready.c main.c error.c ms_atoi.c\
+			utils/is_special_word_character.c
 OBJS	=	$(SRCS:%.c=%.o)
 LIBSRCS	=	libft/ft_isalpha.c libft/ft_isdigit.c libft/ft_isascii.c libft/ft_isalnum.c libft/ft_isprint.c\
 			libft/ft_strlen.c libft/ft_memset.c libft/ft_bzero.c libft/ft_memcpy.c libft/ft_memmove.c libft/ft_strlcat.c\
