@@ -25,7 +25,7 @@ t_node	*new_node(t_node_kind kind)
 	if (node == NULL)
 		fatal_error("calloc");
 	node->kind = kind;
-	node->command = calloc(1, sizeof(t_command));
+	node->command = ft_calloc(1, sizeof(t_command));
 	node->command->args = NULL;
 	node->next = NULL;
 	node->command->redirect = NULL;
