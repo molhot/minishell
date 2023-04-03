@@ -60,8 +60,8 @@ int	obtain_fd(t_redirect *redirect)
 {
 	int	fd;
 
-	// if (redirect->file_path == NULL)
-	// 	return (-1);
+	if (redirect->file_path == NULL)
+		return (-1);
 	if (redirect->type == IN)
 		fd = open(redirect->file_path, O_RDONLY);
 	if (redirect->type == HEREDOC)
