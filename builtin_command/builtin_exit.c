@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:21:24 by user              #+#    #+#             */
-/*   Updated: 2023/04/04 22:01:33 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/04 22:08:25 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ void	ms_exit(char *line, t_command *command)
 	(void)line;
 	commands = command_to_array(command);
 	if (commandch(commands) == false)
+	{
+		free_commands(commands);
 		return ;
+	}
 	if (!commands)
 		fatal_error("malloc");
 	if (commands[1] == NULL)

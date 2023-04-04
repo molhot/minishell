@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:46:37 by user              #+#    #+#             */
-/*   Updated: 2023/03/16 12:13:32 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/04 22:12:22 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	do_builtin(char *line, t_command *command)
 	else if (ft_strncmp(command->args->word, "export", 6) == 0)
 		ms_export(line, command);
 	else if (ft_strncmp(command->args->word, "pwd", 3) == 0)
-		ms_pwd();
+		ms_pwd(command);
 	else if (ft_strncmp(command->args->word, "cd", 2) == 0)
 		ms_cd(command);
 	else if (ft_strncmp(command->args->word, "exit", 4) == 0)

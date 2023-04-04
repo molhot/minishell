@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:28:10 by user              #+#    #+#             */
-/*   Updated: 2023/04/02 23:23:31 by kazuki           ###   ########.fr       */
+/*   Updated: 2023/04/04 22:11:42 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int							ms_echo(char *line, t_command *command);
 void						ms_exit(char *line, t_command *command);
 void						ms_export(char *line, t_command *command);
 void						show_sortedmap(void);
-void						ms_pwd(void);
+void						ms_pwd(t_command *command);
 void						ms_unset(char *line, t_command *command);
 char						**command_to_array(t_command *command);
 void						puts_errorstring_export(char *str);
