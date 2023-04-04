@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_export.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:22:25 by user              #+#    #+#             */
-/*   Updated: 2023/04/02 22:12:47 by kazuki           ###   ########.fr       */
+/*   Updated: 2023/04/04 20:46:16 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static bool	is_valid_export_arguments(char *arg)
 	arg++;
 	while (*arg != '\0' && *arg != '=')
 	{
-		if (!ft_isascii(*arg) || is_special_word_character(*arg) == true)
+		if ((!ft_isalnum(*arg) && *arg != '_') || is_special_word_character(*arg) == true)
 			return (false);
 		arg++;
 	}

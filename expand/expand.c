@@ -6,11 +6,34 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 00:37:31 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/30 01:37:50 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/04 21:52:23 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+static	char	*remove_quote(char *s1, char *s2)
+{
+	char	*new;
+	char	type;
+
+	new = NULL;
+	while (*s1 != '\0')
+	{
+		if (*s1 == '\'' || *s1 == '\"')
+		{
+			type = *s1;
+			s1++;
+			while (*s1 != type)
+				append_char(&new, *s1++);
+			s1++;
+		}
+		else
+			append_char(&new, *s1++);
+	}
+	free(s2);
+	return (new);
+}
 
 t_redirect	*expand_redirect_ten(t_redirect *redirect)
 {
@@ -21,8 +44,14 @@ t_redirect	*expand_redirect_ten(t_redirect *redirect)
 	while (redirect != NULL)
 	{
 		if (redirect->ambigous == false)
-			redirect->file_path = \
-			expand_args_redirect(redirect->file_path, redirect->file_path);
+		{
+			if (redirect->type == HEREDOC)
+				redirect->file_path = \
+				remove_quote(redirect->file_path, redirect->file_path);
+			else
+				redirect->file_path = \
+				expand_args_redirect(redirect->file_path, redirect->file_path);
+		}
 		redirect = redirect->next;
 	}
 	return (f_redirect);

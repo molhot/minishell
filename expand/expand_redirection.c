@@ -46,7 +46,7 @@ void	specialparam_check(t_redirect *redirect)
 	while (redirect != NULL)
 	{
 		args = redirect->file_path;
-		while (*args != '\0')
+		while (*args != '\0' && redirect->type != HEREDOC)
 		{
 			if (*args == '\\')
 				args = args + 2;
