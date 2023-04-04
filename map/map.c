@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 05:30:12 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/30 12:03:03 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/04 22:27:55 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ void	map_unset(t_map **map, char *name)
 	t_item	*itr;
 
 	prev = (*map)->item_head;
+	if (prev == NULL)
+		return ;
 	itr = prev->next;
 	if (ft_strcmp(prev->name, name) == 0)
 	{
