@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:28:10 by user              #+#    #+#             */
-/*   Updated: 2023/04/07 12:52:30 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/07 15:57:50 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ typedef struct s_map
 	t_item					*item_head;
 	int						err_status;
 	char					*ms_pwd;
+	bool					readline_interrupted;
+	bool					heredoc;
 }							t_map;
 
 extern t_map				*g_env;

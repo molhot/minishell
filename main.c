@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:27:43 by satushi           #+#    #+#             */
-/*   Updated: 2023/04/02 22:42:41 by kazuki           ###   ########.fr       */
+/*   Updated: 2023/04/07 15:53:51 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	main(void)
 	env_init();
 	while (1)
 	{
+		g_env->readline_interrupted = false;
 		signal(SIGINT, sigint_handler);
 		signal(SIGQUIT, SIG_IGN);
 		line = readline("minishell$ ");

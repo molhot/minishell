@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:39:39 by user              #+#    #+#             */
-/*   Updated: 2023/03/08 19:36:46 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/07 14:10:25 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	sigint_handler(int sig)
 {
 	(void)sig;
 	g_env->err_status = 1;
+	g_env->readline_interrupted = true;
 	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
