@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
+/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 16:28:10 by user              #+#    #+#             */
-/*   Updated: 2023/04/07 15:57:50 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/07 18:06:59 by kazuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,7 @@ void						not_expnad(char **dst, char **rest, char *p);
 /************* signal handler ************/
 
 void						sigint_handler(int sig);
+void						signal_handler(int signal);
 //void		signal_handler2(int signal);
 
 /************* execfunction ************/

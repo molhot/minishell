@@ -30,38 +30,23 @@ static char	*re_makeinwd(char *line, bool exok, const char *deli)
 	return (remake);
 }
 
-void signal_handler(int signum)
+static int	check_state(void)
 {
-    /* シグナルをキャッチしたときに実行したい内容 */
-	(void)signum;
-    g_env->heredoc = true;
-}
-
-static int check_state() {
-    if (g_env->heredoc == true) {
-        g_env->heredoc = false;
+	if (g_env->heredoc == true)
+	{
+		g_env->heredoc = false;
 		g_env->readline_interrupted = true;
-
-        /* 入力中のテキストを破棄 */
-        rl_replace_line("", 0);
-
-        /* readline()をreturnさせる */
-        rl_done = 1;
-    }
-    return 0;
+		rl_replace_line("", 0);
+		rl_done = 1;
+	}
+	return (0);
 }
 
-static	int	heredoc(const char *deli, bool ex_ok)
+static int	heredoc_loop(const char *deli, bool ex_od, int pfd)
 {
 	char	*line;
 	char	*re_line;
-	int		pfd[2];
 
-	if (pipe(pfd) < 0)
-		fatal_error("pipe");
-	rl_event_hook = check_state;
-	g_env->heredoc = false;
-	signal(SIGINT, signal_handler);
 	while (1)
 	{
 		if (g_env->readline_interrupted)
@@ -74,16 +59,36 @@ static	int	heredoc(const char *deli, bool ex_ok)
 			free(line);
 			break ;
 		}
-		re_line = re_makeinwd(line, ex_ok, deli);
+		re_line = re_makeinwd(line, ex_od, deli);
 		if (ft_strcmp(re_line, deli) == 0)
 		{
 			free(re_line);
 			break ;
 		}
-		ft_putendl_fd(re_line, pfd[1]);
+		ft_putendl_fd(re_line, pfd);
 		free(re_line);
 	}
+	return (0);
+}
+
+static	int	heredoc(const char *deli, bool ex_ok)
+{
+	int		pfd[2];
+	int		res;
+
+	if (pipe(pfd) < 0)
+		fatal_error("pipe");
+	rl_event_hook = check_state;
+	g_env->heredoc = false;
+	signal(SIGINT, signal_handler);
+	res = heredoc_loop(deli, ex_ok, pfd[1]);
 	close (pfd[1]);
+	if (res == -1)
+	{
+		close(pfd[0]);
+		signal(SIGINT, SIG_IGN);
+		return (-1);
+	}
 	rl_event_hook = NULL;
 	if (g_env->readline_interrupted)
 	{

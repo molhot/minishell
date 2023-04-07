@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sigint_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
+/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:39:39 by user              #+#    #+#             */
-/*   Updated: 2023/04/07 14:10:25 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/07 18:05:22 by kazuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ void	sigint_handler(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+}
+
+void	signal_handler(int signum)
+{
+	(void)signum;
+	g_env->heredoc = true;
 }
 
 // void  signal_handler2(int signal)
