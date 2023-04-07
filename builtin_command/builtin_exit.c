@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:21:24 by user              #+#    #+#             */
-/*   Updated: 2023/04/04 22:17:31 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/07 12:48:21 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static	bool	commandch(char **commands)
 {
 	if (commands[2] != NULL)
 	{
+		printf("exit\n");
 		printf("too many argments\n");
 		g_env->err_status = 1;
 		return (false);
@@ -29,6 +30,7 @@ static	bool	atolch(char *s1)
 		s1++;
 	if (*s1 != '\0')
 	{
+		printf("exit\n");
 		printf("not correct arg :X\n");
 		return (false);
 	}
@@ -51,7 +53,7 @@ void	ms_exit(char *line, t_command *command)
 	if (commandch(commands) == false)
 	{
 		free_commands(commands);
-		return ;
+		exit(1);
 	}
 	if (!commands)
 		fatal_error("malloc");
@@ -64,7 +66,7 @@ void	ms_exit(char *line, t_command *command)
 		&& ft_strlen(commands[1]) > 2))
 		show_error_exit();
 	if (atolch(commands[1]) == false)
-		return ;
+		exit (255);
 	printf("exit\n");
 	exit(ms_atoi(commands[1]));
 }
