@@ -21,3 +21,9 @@ void	append_item(t_item **target, t_item *item)
 	}
 	append_item(&(*target)->next, item);
 }
+
+void	free_key_name(char *s1, char *s2)
+{
+	free(s1);
+	free(s2);
+}
