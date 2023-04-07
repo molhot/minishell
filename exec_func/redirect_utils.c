@@ -50,14 +50,14 @@ static int	heredoc_loop(const char *deli, bool ex_od, int pfd)
 	while (1)
 	{
 		if (g_env->readline_interrupted)
-			break ;
+			return (-1);
 		line = readline("input > ");
 		if (line == NULL)
-			break ;
+			return (0);
 		if (g_env->readline_interrupted)
 		{
 			free(line);
-			break ;
+			return (-1);
 		}
 		re_line = re_makeinwd(line, ex_od, deli);
 		if (ft_strcmp(re_line, deli) == 0)
@@ -83,21 +83,19 @@ static	int	heredoc(const char *deli, bool ex_ok)
 	signal(SIGINT, signal_handler);
 	res = heredoc_loop(deli, ex_ok, pfd[1]);
 	close (pfd[1]);
+	rl_event_hook = NULL;
+	signal(SIGINT, SIG_IGN);
+	rl_event_hook = NULL;
 	if (res == -1)
 	{
 		close(pfd[0]);
-		signal(SIGINT, SIG_IGN);
-		rl_event_hook = NULL;
 		return (-1);
 	}
-	rl_event_hook = NULL;
 	if (g_env->readline_interrupted)
 	{
 		close(pfd[0]);
-		signal(SIGINT, SIG_IGN);
 		return (-1);
 	}
-	signal(SIGINT, SIG_IGN);
 	return (pfd[0]);
 }
 
