@@ -6,16 +6,17 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:21:24 by user              #+#    #+#             */
-/*   Updated: 2023/04/04 22:01:33 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/07 12:48:21 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static	bool commandch(char **commands)
+static	bool	commandch(char **commands)
 {
 	if (commands[2] != NULL)
 	{
+		printf("exit\n");
 		printf("too many argments\n");
 		g_env->err_status = 1;
 		return (false);
@@ -23,16 +24,24 @@ static	bool commandch(char **commands)
 	return (true);
 }
 
-static	bool atolch(char *s1)
+static	bool	atolch(char *s1)
 {
 	while (ft_isdigit(*s1) == 1)
 		s1++;
 	if (*s1 != '\0')
 	{
+		printf("exit\n");
 		printf("not correct arg :X\n");
 		return (false);
 	}
 	return (true);
+}
+
+static	void	show_error_exit(void)
+{
+	printf("exit\n");
+	printf("minishell: exit: numeric argument required\n");
+	exit(255);
 }
 
 void	ms_exit(char *line, t_command *command)
@@ -42,7 +51,10 @@ void	ms_exit(char *line, t_command *command)
 	(void)line;
 	commands = command_to_array(command);
 	if (commandch(commands) == false)
-		return ;
+	{
+		free_commands(commands);
+		exit(1);
+	}
 	if (!commands)
 		fatal_error("malloc");
 	if (commands[1] == NULL)
@@ -52,13 +64,9 @@ void	ms_exit(char *line, t_command *command)
 	}
 	if (!ms_atoi(commands[1]) || (ms_atoi(commands[1]) == -1 \
 		&& ft_strlen(commands[1]) > 2))
-	{
-		printf("exit\n");
-		printf("minishell: exit: numeric argument required\n");
-		exit(255);
-	}
+		show_error_exit();
 	if (atolch(commands[1]) == false)
-		return ;
+		exit (255);
 	printf("exit\n");
 	exit(ms_atoi(commands[1]));
 }

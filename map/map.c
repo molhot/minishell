@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 05:30:12 by satushi           #+#    #+#             */
-/*   Updated: 2023/03/30 12:03:03 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/07 12:53:32 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,12 @@ void	map_unset(t_map **map, char *name)
 	t_item	*itr;
 
 	prev = (*map)->item_head;
+	if (prev == NULL)
+		return ;
 	itr = prev->next;
 	if (ft_strcmp(prev->name, name) == 0)
 	{
-		free(prev->name);
-		free(prev->value);
+		free_key_name(prev->name, prev->value);
 		free(prev);
 		(*map)->item_head = itr;
 	}
@@ -100,8 +101,7 @@ void	map_unset(t_map **map, char *name)
 	{
 		if (ft_strcmp(itr->name, name) == 0)
 		{
-			free(itr->name);
-			free(itr->value);
+			free_key_name(itr->name, itr->value);
 			prev->next = itr->next;
 			free(itr);
 			return ;

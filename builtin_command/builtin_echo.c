@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:19:18 by user              #+#    #+#             */
-/*   Updated: 2023/04/02 22:52:59 by kazuki           ###   ########.fr       */
+/*   Updated: 2023/04/06 02:50:42 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static void	print_with_newline(char **commands)
 	while (commands[i] != NULL)
 	{
 		ft_putstr_fd(commands[i++], 1);
-		ft_putstr_fd(" ", 1);
+		if (commands[i] != NULL)
+			ft_putstr_fd(" ", 1);
 	}
 	ft_putstr_fd("\n", 1);
 }

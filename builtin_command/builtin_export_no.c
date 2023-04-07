@@ -96,6 +96,8 @@ void	show_sortedmap(void)
 	t_map_copy	*copy;
 	t_map_copy	*tmp_copy;
 
+	if (g_env->item_head == NULL)
+		return ;
 	copy = (t_map_copy *)malloc(sizeof(t_map_copy) * 1);
 	map_copy(copy);
 	while (1)
