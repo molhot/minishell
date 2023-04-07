@@ -87,6 +87,7 @@ static	int	heredoc(const char *deli, bool ex_ok)
 	{
 		close(pfd[0]);
 		signal(SIGINT, SIG_IGN);
+		rl_event_hook = NULL;
 		return (-1);
 	}
 	rl_event_hook = NULL;
