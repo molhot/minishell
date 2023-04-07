@@ -60,11 +60,12 @@ static	int	heredoc(const char *deli, bool ex_ok)
 	if (pipe(pfd) < 0)
 		fatal_error("pipe");
 	rl_event_hook = check_state;
-	g_env->readline_interrupted = false;
 	g_env->heredoc = false;
 	signal(SIGINT, signal_handler);
 	while (1)
 	{
+		if (g_env->readline_interrupted)
+			break ;
 		line = readline("input > ");
 		if (line == NULL)
 			break ;
@@ -83,6 +84,7 @@ static	int	heredoc(const char *deli, bool ex_ok)
 		free(re_line);
 	}
 	close (pfd[1]);
+	rl_event_hook = NULL;
 	if (g_env->readline_interrupted)
 	{
 		close(pfd[0]);
