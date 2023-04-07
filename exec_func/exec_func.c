@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 01:39:08 by satushi           #+#    #+#             */
-/*   Updated: 2023/04/07 16:02:39 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/07 23:15:48 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void	exec(t_node *node)
 		if (g_env->readline_interrupted)
 		{
 			g_env->readline_interrupted = false;
+			g_env->err_status = 1;
 			return ;
 		}
 		last_pid = exec_pipeline(node);
