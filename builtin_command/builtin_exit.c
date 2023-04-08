@@ -58,7 +58,7 @@ void	ms_exit(char *line, t_command *command)
 	if (commandch(commands) == false)
 	{
 		free_commands(commands);
-		exit(1);
+    return ;
 	}
 	if (!commands)
 		fatal_error("malloc");
