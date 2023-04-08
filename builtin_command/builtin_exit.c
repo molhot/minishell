@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
+/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:21:24 by user              #+#    #+#             */
-/*   Updated: 2023/04/08 01:15:07 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/08 14:18:34 by kazuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ms_exit(char *line, t_command *command)
 	if (commandch(commands) == false)
 	{
 		free_commands(commands);
-    return ;
+		return ;
 	}
 	if (!commands)
 		fatal_error("malloc");
