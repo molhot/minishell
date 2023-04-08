@@ -30,29 +30,72 @@ static char	*re_makeinwd(char *line, bool exok, const char *deli)
 	return (remake);
 }
 
-static	int	heredoc(const char *deli, bool ex_ok)
+static int	check_state(void)
+{
+	if (g_env->heredoc == true)
+	{
+		g_env->heredoc = false;
+		g_env->readline_interrupted = true;
+		rl_replace_line("", 0);
+		rl_done = 1;
+	}
+	return (0);
+}
+
+static int	heredoc_loop(const char *deli, bool ex_od, int pfd)
 {
 	char	*line;
 	char	*re_line;
-	int		pfd[2];
 
-	if (pipe(pfd) < 0)
-		fatal_error("pipe");
 	while (1)
 	{
+		if (g_env->readline_interrupted)
+			return (-1);
 		line = readline("input > ");
 		if (line == NULL)
-			break ;
-		re_line = re_makeinwd(line, ex_ok, deli);
+			return (0);
+		if (g_env->readline_interrupted)
+		{
+			free(line);
+			return (-1);
+		}
+		re_line = re_makeinwd(line, ex_od, deli);
 		if (ft_strcmp(re_line, deli) == 0)
 		{
 			free(re_line);
 			break ;
 		}
-		ft_putendl_fd(re_line, pfd[1]);
+		ft_putendl_fd(re_line, pfd);
 		free(re_line);
 	}
+	return (0);
+}
+
+static	int	heredoc(const char *deli, bool ex_ok)
+{
+	int		pfd[2];
+	int		res;
+
+	if (pipe(pfd) < 0)
+		fatal_error("pipe");
+	rl_event_hook = check_state;
+	g_env->heredoc = false;
+	signal(SIGINT, signal_handler);
+	res = heredoc_loop(deli, ex_ok, pfd[1]);
 	close (pfd[1]);
+	rl_event_hook = NULL;
+	signal(SIGINT, SIG_IGN);
+	rl_event_hook = NULL;
+	if (res == -1)
+	{
+		close(pfd[0]);
+		return (-1);
+	}
+	if (g_env->readline_interrupted)
+	{
+		close(pfd[0]);
+		return (-1);
+	}
 	return (pfd[0]);
 }
 

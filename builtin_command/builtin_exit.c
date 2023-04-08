@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:21:24 by user              #+#    #+#             */
-/*   Updated: 2023/04/07 12:48:21 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/08 01:15:07 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 
 static	bool	commandch(char **commands)
 {
-	if (commands[2] != NULL)
+	size_t	posi;
+
+	posi = 0;
+	while (commands[posi] != NULL)
+		posi++;
+	if (posi >= 3)
 	{
 		printf("exit\n");
 		printf("too many argments\n");

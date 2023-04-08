@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:39:39 by user              #+#    #+#             */
-/*   Updated: 2023/03/08 19:36:46 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/08 01:01:21 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ void	sigint_handler(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+}
+
+void	signal_handler(int signum)
+{
+	(void)signum;
+	g_env->heredoc = true;
 }
 
 // void  signal_handler2(int signal)
