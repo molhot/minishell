@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 01:39:08 by satushi           #+#    #+#             */
-/*   Updated: 2023/04/11 20:22:46 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/11 21:26:07 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,17 +93,23 @@ pid_t	exec_pipeline(t_node *node)
 	argv = args_to_argv(node->command->args);
 	if (!argv)
 		fatal_error("malloc");
-	if (argv[0] == NULL)
-		return (0);
-	exec_check(node, argv[0]);
-	prepare_pipe(node);
-	pid = fork();
-	if (pid < 0)
-		fatal_error("fork");
-	else if (pid == 0)
-		child_process(node, argv[0], argv, environ);
-	prepare_pipe_parent(node);
-	aray_free(argv);
+	if (argv[0] != NULL)
+	{
+		exec_check(node, argv[0]);
+		prepare_pipe(node);
+		pid = fork();
+		if (pid < 0)
+			fatal_error("fork");
+		else if (pid == 0)
+			child_process(node, argv[0], argv, environ);
+		prepare_pipe_parent(node);
+		aray_free(argv);
+	}
+	else
+	{
+		if (*(node->command->redirect) != NULL)
+			redirectfile_check(*(node->command->redirect));
+	}
 	if (node->next)
 		return (exec_pipeline(node->next));
 	return (pid);

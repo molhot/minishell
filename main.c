@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 17:27:43 by satushi           #+#    #+#             */
-/*   Updated: 2023/04/08 00:39:25 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/11 21:41:49 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,56 @@
 
 t_map		*g_env;
 
+static void	redirectfile_check(t_redirect *redirect)
+{
+	int	fd;
+
+	if (redirect->file_path == NULL || redirect->ambigous == true)
+		printf("minishell: %s: ambiguous redirect\n", \
+		redirect->file_path);
+	else
+	{
+		if (redirect->type == IN)
+			fd = open(redirect->file_path, O_RDONLY);
+		if (redirect->type == OUT)
+			fd = open(redirect->file_path, \
+			O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		if (redirect->type == APPEND)
+			fd = open(redirect->file_path, \
+			O_CREAT | O_WRONLY | O_APPEND, 0644);
+		if (fd != -1)
+			close (fd);
+		write(2, "minishell: ", 12);
+		perror(redirect->file_path);
+	}
+	g_env->err_status = 1;
+}
+
+static	void	only_redirectch(t_node *node)
+{
+	t_redirect	*redirect;
+	
+	redirect = *(node->command->redirect);
+	while (redirect != NULL)
+	{
+		if (redirect->redirectfile == -1 || redirect->ambigous == true)
+			redirectfile_check(redirect);
+		redirect = redirect->next;
+	}
+	g_env->err_status = 1;
+}
+
 static void	exec_switching(t_node *node)
 {
 	if (node->command->args == NULL && node->command->redirect != NULL)
+	{
 		ready_redirection_file(node);
+		while (node != NULL)
+		{
+			only_redirectch(node);
+			node = node->next;
+		}
+	}
 	else if (node->next == NULL && is_builtin(node->command->args->word))
 		builtin_exec(node);
 	else if (node->command->args->word != NULL)
