@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_func.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
+/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 01:39:08 by satushi           #+#    #+#             */
-/*   Updated: 2023/04/11 21:26:07 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/11 23:37:18 by kazuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,11 +105,8 @@ pid_t	exec_pipeline(t_node *node)
 		prepare_pipe_parent(node);
 		aray_free(argv);
 	}
-	else
-	{
-		if (*(node->command->redirect) != NULL)
-			redirectfile_check(*(node->command->redirect));
-	}
+	else if (*(node->command->redirect) != NULL)
+		redirectfile_check(*(node->command->redirect));
 	if (node->next)
 		return (exec_pipeline(node->next));
 	return (pid);

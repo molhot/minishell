@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_file.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
+/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 01:32:50 by satushi           #+#    #+#             */
-/*   Updated: 2023/04/04 20:09:46 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/11 23:34:42 by kazuki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	ready_redirection_file(t_node *node)
 	while (node != NULL)
 	{
 		redirect = *(node->command->redirect);
+		printf("%s\n", redirect->file_path);
 		while (redirect != NULL)
 		{
 			fd = obtain_fd(redirect);
