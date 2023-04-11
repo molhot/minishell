@@ -6,7 +6,7 @@
 /*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 01:39:08 by satushi           #+#    #+#             */
-/*   Updated: 2023/04/08 00:39:45 by mochitteiun      ###   ########.fr       */
+/*   Updated: 2023/04/11 20:22:46 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ pid_t	exec_pipeline(t_node *node)
 	argv = args_to_argv(node->command->args);
 	if (!argv)
 		fatal_error("malloc");
+	if (argv[0] == NULL)
+		return (0);
 	exec_check(node, argv[0]);
 	prepare_pipe(node);
 	pid = fork();
