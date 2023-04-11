@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kazuki <kazuki@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mochitteiunon? <sakata19991214@gmail.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 20:21:24 by user              #+#    #+#             */
-/*   Updated: 2023/04/08 14:18:34 by kazuki           ###   ########.fr       */
+/*   Updated: 2023/04/11 19:42:45 by mochitteiun      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static	bool	commandch(char **commands)
 
 static	bool	atolch(char *s1)
 {
+	if (*s1 == '+' || *s1 == '-')
+		s1++;
 	while (ft_isdigit(*s1) == 1)
 		s1++;
 	if (*s1 != '\0')
